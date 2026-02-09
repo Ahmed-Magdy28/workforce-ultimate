@@ -14,14 +14,22 @@ import {
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useLogin } from '@/features/auth/hooks/useLogin';
+import { Spinner } from '@/components/ui/spinner';
 
 export default function LoginPage() {
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
+   // TODO: when finish to remove this fake data
+   const testData = {
+      email: 'test@gmail.com',
+      password: '123456789',
+   };
+
+   const [email, setEmail] = useState(testData.email);
+   const [password, setPassword] = useState(testData.password);
    const [showPassword, setShowPassword] = useState(false);
    const [rememberMe, setRememberMe] = useState(false);
    const [error, setError] = useState('');
-   const [loading, setLoading] = useState(false);
+   const { login, isPending } = useLogin();
 
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -33,21 +41,9 @@ export default function LoginPage() {
          return;
       }
 
-      setLoading(true);
-
-      try {
-         // Add your login logic here
-         console.log('Login:', { email, password, rememberMe });
-
-         // Simulate API call
-         await new Promise((resolve) => setTimeout(resolve, 1000));
-      } catch (err: unknown) {
-         console.log(err);
-         setError('Invalid email or password. Please try again.');
-      } finally {
-         setLoading(false);
-      }
+      login({ email, password });
    };
+   if (isPending) return <Spinner />;
 
    return (
       <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4">
@@ -136,8 +132,8 @@ export default function LoginPage() {
                      </label>
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={loading}>
-                     {loading ? 'Signing in...' : 'Sign in'}
+                  <Button type="submit" className="w-full" disabled={isPending}>
+                     {isPending ? 'Signing in...' : 'Sign in'}
                   </Button>
                </form>
             </CardContent>

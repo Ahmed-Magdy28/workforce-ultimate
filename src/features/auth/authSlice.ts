@@ -1,43 +1,37 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-type Role =
-   | 'EMPLOYEE'
-   | 'MANAGER'
-   | 'SENIOR_MANAGER'
-   | 'REGIONAL_MANAGER'
-   | 'HR';
-
-interface AuthState {
-   isAuthenticated: boolean;
-   role: Role | null;
-   userId: string | null;
-}
-
-const initialState: AuthState = {
-   isAuthenticated: false,
-   role: null,
-   userId: null,
-};
+import type { Session } from '@supabase/supabase-js';
+import type { Role } from '@/types/roles';
+import { AuthInitialState } from '@/lib/utils';
 
 const authSlice = createSlice({
    name: 'auth',
-   initialState,
+   initialState: AuthInitialState,
    reducers: {
-      loginSuccess(
-         state,
-         action: PayloadAction<{ userId: string; role: Role }>,
-      ) {
-         state.isAuthenticated = true;
-         state.userId = action.payload.userId;
-         state.role = action.payload.role;
+      setSession(state, action: PayloadAction<Session | null>) {
+         state.session = action.payload;
+
+         if (action.payload) {
+            state.isAuthenticated = true;
+            state.userId = action.payload.user.id;
+         } else {
+            state.isAuthenticated = false;
+            state.userId = null;
+            state.role = null;
+         }
       },
+
+      setRole(state, action: PayloadAction<Role>) {
+         state.role = action.payload;
+      },
+
       logout(state) {
+         state.session = null;
          state.isAuthenticated = false;
-         state.role = null;
          state.userId = null;
+         state.role = null;
       },
    },
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const { setSession, setRole, logout } = authSlice.actions;
 export default authSlice.reducer;

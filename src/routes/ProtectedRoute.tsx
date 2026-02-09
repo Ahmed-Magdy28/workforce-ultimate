@@ -9,7 +9,6 @@ export default function ProtectedRoute({
    children: JSX.Element;
 }) {
    const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
-
    if (!isAuth) {
       return <Navigate to="/login" replace />;
    }
