@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/services/supabase';
 
 export const getUserRoleAPI = async (userId: string) => {
    const { data, error } = await supabase
