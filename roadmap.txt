@@ -1,0 +1,48 @@
+🔵 PHASE 1 — Foundation (3-4 weeks)
+✅ Public website (landing, about, docs, etc.)
+✅ SEO + Dark mode + i18n
+✅ Authentication (sign in/up, forgot password, email verification)
+✅ Protected routing
+✅ Company creation (basic)
+✅ RBAC setup
+
+🔵 PHASE 2 — Core MVP (4-6 weeks)
+✅ Company hierarchy (5 roles)
+✅ User-company linking (invites + approvals)
+✅ Project creation
+✅ Task management (create, assign, lifecycle)
+✅ Time estimation & modification flow
+✅ Basic role-based dashboards
+🎯 DEMO-ABLE & INTERVIEW-READY
+
+🔵 PHASE 2.5 — Essential Features (2-3 weeks)
+✅ Notifications (email + in-app)
+✅ Performance evaluation system
+✅ Daily work logs
+✅ Search & filters
+✅ Basic analytics
+
+🔵 PHASE 3 — Collaboration (3-4 weeks)
+✅ File uploads (task attachments)
+✅ Task comments + @mentions
+✅ Activity logs
+✅ HR features (bonuses, warnings)
+✅ GitHub/Gmail integration
+✅ Real-time chat
+
+🔵 PHASE 4 — Scale & Polish (3-4 weeks)
+✅ PWA (installable, offline, push notifications)
+✅ Performance optimization
+✅ Caching strategy
+✅ Background jobs
+✅ Advanced reporting
+
+🔵 PHASE 4.5 — Native Mobile (Optional, 4-6 weeks)
+⏸️ Only if PWA isn't sufficient
+✅ React Native app
+✅ App store deployment
+
+🔵 PHASE 5 — Backend Migration (Optional, 6-8 weeks)
+✅ Custom backend
+✅ Data migration
+✅ Gradual rollout

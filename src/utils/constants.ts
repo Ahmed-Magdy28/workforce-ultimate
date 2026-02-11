@@ -2,7 +2,7 @@
 export const myGithubLink = 'https://github.com/Ahmed-Magdy28';
 export const projectGithubLink =
    'https://github.com/Ahmed-Magdy28/workforce-ultimate';
-export const projectLiveLink = '';
+export const projectLiveLink = 'https://workforce-ultimate.vercel.app';
 export const myLinkedinLink = 'https://www.linkedin.com/in/ahmedmagdy2849/';
 export const myXLink = 'https://x.com/AhMeDMaGDY1428';
 export const myFacebookLink = 'https://www.facebook.com/AhMeDMaGDY284';
