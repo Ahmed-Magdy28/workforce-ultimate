@@ -8,7 +8,7 @@ export default function Page404() {
    const { t } = useTranslation();
 
    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/40 px-4 py-12">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-b from-background to-muted/40 px-4 py-12">
          <div className="text-center max-w-2xl">
             {/* Big 404 */}
             <h1 className="text-8xl md:text-9xl font-black tracking-tighter text-primary/20 mb-4 select-none">
@@ -60,7 +60,7 @@ export default function Page404() {
             </div>
 
             {/* Fun easter egg / personality touch */}
-            <Card className="max-w-md mx-auto border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+            <Card className="max-w-md mx-auto border-2 border-primary/20 bg-linear-to-br from-primary/5 to-transparent">
                <CardContent className="p-6 text-center">
                   <div className="flex justify-center mb-4">
                      <Rocket className="h-10 w-10 text-primary/40 animate-pulse" />
