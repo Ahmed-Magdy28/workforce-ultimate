@@ -19,10 +19,10 @@ import SupportPage from '@/pages/Public/SupportPage';
 import CommunityPage from '@/pages/Public/CommunityPage';
 import PrivacyPage from '@/pages/Public/PrivacyPage';
 import TermsPage from '@/pages/Public/TermsPage';
-import CookiesPage from '@/pages/Public/CookiesPage.';
 import SecurityPage from '@/pages/Public/SecurityPage';
 import SettingsPage from '@/pages/Public/SettingsPage';
 import RoadMapPage from '@/pages/Public/RoadMapPage';
+import CookiesPage from '@/pages/Public/CookiesPage';
 
 export default function AppRoutes() {
    return (
@@ -30,7 +30,7 @@ export default function AppRoutes() {
          {/* Public */}
          <Route element={<PublicLayout />}>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/roadmap1" element={<RoadMapPage />} />
+            <Route path="/roadmap" element={<RoadMapPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/careers" element={<CareerPage />} />
             <Route path="/blog" element={<BlogPage />} />
@@ -45,11 +45,9 @@ export default function AppRoutes() {
             <Route path="/security" element={<SecurityPage />} />
             <Route path="/settings" element={<SettingsPage />} />
 
-            <Route>
-               <Route path="/login" element={<LoginPage />} />
-               <Route path="/signup" element={<Signup />} />
-               <Route path="/forgotpassword" element={<ForgotPassword />} />
-            </Route>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
          </Route>
 
          {/* Employee */}
