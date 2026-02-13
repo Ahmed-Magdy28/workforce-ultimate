@@ -30,7 +30,7 @@ export default function AppRoutes() {
          {/* Public */}
          <Route element={<PublicLayout />}>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/roadmap" element={<RoadMapPage />} />
+            <Route path="/roadmap1" element={<RoadMapPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/careers" element={<CareerPage />} />
             <Route path="/blog" element={<BlogPage />} />
