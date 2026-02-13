@@ -239,12 +239,12 @@ export function PublicFooter() {
                            <ul className="space-y-3">
                               {footerLinks.company.map((link, index) => (
                                  <li key={index}>
-                                    <Link
-                                       to={link.href}
+                                    <a
+                                       href={link.href}
                                        className="text-sm text-muted-foreground transition-colors hover:text-primary"
                                     >
                                        {link.label}
-                                    </Link>
+                                    </a>
                                  </li>
                               ))}
                            </ul>
