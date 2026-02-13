@@ -10,6 +10,7 @@ export default function RoadMapPage() {
    return (
       <>
          <RoadMapPhase1 />
+
          <RoadMapPhase2 />
          <RoadMapPhase25 />
          <RoadMapPhase3 />
