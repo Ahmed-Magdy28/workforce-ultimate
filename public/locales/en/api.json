@@ -1,0 +1,42 @@
+{
+    "api": {
+        "title": "Public API",
+        "subtitle": "Build custom integrations, automate workflows, or pull your data into other tools. Simple, RESTful, and built by one person who actually uses it.",
+        "copied": "Copied to clipboard!",
+        "auth": {
+            "title": "Authentication",
+            "desc": "All API requests require authentication using a personal API key.",
+            "example": "Authorization: Bearer YOUR_API_KEY",
+            "how": "How to get your API key",
+            "step1": "Log in to your account",
+            "step2": "Go to Settings → API Keys",
+            "step3": "Click \"Generate new key\"",
+            "step4": "Copy and store it securely — it won’t be shown again",
+            "gotodocs": "Go to Settings (login required)",
+            "required": "Auth required"
+        },
+        "base": {
+            "title": "Base URL",
+            "note": "All endpoints are versioned — use /v1 for now. v2 coming later in 2026."
+        },
+        "limits": {
+            "title": "Rate Limits",
+            "free": "Free plan",
+            "paid": "Paid plans",
+            "note": "Rate limits are per API key. Burst allowed. Headers include remaining requests."
+        },
+        "endpoints": {
+            "title": "Available Endpoints (v1)",
+            "desc": "This is the current public surface — more endpoints will be added over time.",
+            "employees": "List employees in your company (paginated)",
+            "employee": "Get single employee details",
+            "createEmployee": "Create a new employee (admin/manager only)",
+            "worklogs": "List work logs (filter by date, employee, etc.)",
+            "goals": "List goals / OKRs (personal or team)"
+        },
+        "fullDocs": "View full API documentation →",
+        "docsNote": "Interactive docs, examples, OpenAPI spec, and more",
+        "footer": "Built and maintained by one person in Cairo. If something is missing or unclear — just email me.",
+        "contact": "Contact me about the API"
+    }
+}

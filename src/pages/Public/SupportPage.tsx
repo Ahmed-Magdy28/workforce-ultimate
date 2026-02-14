@@ -12,9 +12,10 @@ import {
    AlertCircle,
    Send,
 } from 'lucide-react';
+import { myEmail } from '@/utils/constants';
 
 export default function SupportPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('support');
 
    return (
       <div className="container max-w-5xl mx-auto px-4 py-12 md:py-20">
@@ -53,13 +54,13 @@ export default function SupportPage() {
                      )}
                   </p>
                   <Button size="lg" className="w-full" asChild>
-                     <a href="mailto:ahmed@example.com?subject=Support%20request">
+                     <a href={`mailto:${myEmail}?subject=Support%20request`}>
                         <Send className="mr-2 h-5 w-5" />
                         {t('support.email.action', 'Open email client')}
                      </a>
                   </Button>
                   <p className="text-sm text-muted-foreground text-center">
-                     {t('support.email.note', 'ahmed@example.com')}
+                     {t('support.email.note', myEmail)}
                   </p>
                </CardContent>
             </Card>
@@ -139,7 +140,7 @@ export default function SupportPage() {
          </div>
 
          {/* What to include when contacting */}
-         <Card className="mb-16 md:mb-20 border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-transparent">
+         <Card className="mb-16 md:mb-20 border-2 border-amber-500/30 bg-linear-to-br from-amber-500/5 to-transparent">
             <CardHeader>
                <CardTitle className="text-2xl flex items-center gap-3">
                   <AlertCircle className="h-6 w-6 text-amber-600" />
@@ -232,7 +233,7 @@ export default function SupportPage() {
 
             <div className="flex flex-wrap justify-center gap-6">
                <Button size="lg" asChild>
-                  <a href="mailto:ahmed@example.com?subject=Support%20request">
+                  <a href={`"mailto:${myEmail}?subject=Support%20request`}>
                      <Mail className="mr-2 h-5 w-5" />
                      {t('support.cta.email', 'Email me now')}
                   </a>

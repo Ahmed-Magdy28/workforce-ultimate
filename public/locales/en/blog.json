@@ -1,0 +1,33 @@
+{
+    "blog": {
+        "title": "Blog & Updates",
+        "subtitle": "Thoughts, lessons, technical deep-dives and behind-the-scenes stories from building this product solo.",
+        "new": "New",
+        "readMore": "Read article",
+        "posts": {
+            "launch": {
+                "title": "What I Learned Launching v1 as a Solo Developer",
+                "desc": "The good, the bad, the bugs I fixed at 3 a.m., and why I decided to build in public from day one."
+            },
+            "rtl": {
+                "title": "Why RTL Support Was Non-Negotiable From Day One",
+                "desc": "Building for Arabic users isn’t an afterthought — it’s a core requirement. Here’s how I approached it in React + Tailwind."
+            },
+            "supabase": {
+                "title": "Supabase vs Firebase in 2026 — My Choice & Trade-offs",
+                "desc": "After using both in side projects, here’s an honest comparison now that Supabase has matured significantly."
+            },
+            "public": {
+                "title": "Why I’m Building This in Public (and Why You Might Too)",
+                "desc": "Transparency, feedback loops, accountability — and yes, the occasional embarrassment. My experience so far."
+            }
+        },
+        "empty": {
+            "title": "No posts yet",
+            "desc": "I’m still heads-down building the product. First blog posts coming soon — probably about launch lessons, tech choices, and mistakes I made along the way.",
+            "contact": "Get notified when I publish"
+        },
+        "footer": "Want updates when new articles are published? No spam — just occasional emails.",
+        "subscribe": "Subscribe to updates"
+    }
+}

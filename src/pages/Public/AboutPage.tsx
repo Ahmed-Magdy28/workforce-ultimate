@@ -12,9 +12,15 @@ import {
    Rocket,
    Globe,
 } from 'lucide-react';
+import {
+   myEmail,
+   myGithubLink,
+   myLinkedinLink,
+   myXLink,
+} from '@/utils/constants';
 
 export default function AboutPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('about');
 
    return (
       <div className="container max-w-5xl mx-auto px-4 py-12 md:py-20">
@@ -68,7 +74,7 @@ export default function AboutPage() {
             </div>
 
             {/* Right side – values / personality */}
-            <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+            <Card className="border-2 border-primary/20 bg-linear-to-br from-primary/5 to-transparent">
                <CardHeader>
                   <CardTitle className="text-2xl flex items-center gap-3">
                      <Heart className="h-6 w-6 text-red-500" />
@@ -150,10 +156,7 @@ export default function AboutPage() {
 
             <div className="flex flex-wrap justify-center gap-4 mb-10">
                <Button variant="outline" size="lg" asChild>
-                  <a
-                     href="mailto:ahmed@example.com"
-                     className="flex items-center gap-2"
-                  >
+                  <a href={myEmail} className="flex items-center gap-2">
                      <Mail className="h-5 w-5" />
                      {t('about.email', 'Email me')}
                   </a>
@@ -161,19 +164,18 @@ export default function AboutPage() {
 
                <Button variant="outline" size="lg" asChild>
                   <a
-                     href="https://twitter.com/AhMeDMaGDY1428"
+                     href={myXLink}
                      target="_blank"
                      rel="noopener noreferrer"
                      className="flex items-center gap-2"
                   >
-                     <Twitter className="h-5 w-5" />
-                     Twitter / X
+                     <Twitter className="h-5 w-5" />X
                   </a>
                </Button>
 
                <Button variant="outline" size="lg" asChild>
                   <a
-                     href="https://github.com/yourusername"
+                     href={myGithubLink}
                      target="_blank"
                      rel="noopener noreferrer"
                      className="flex items-center gap-2"
@@ -185,7 +187,7 @@ export default function AboutPage() {
 
                <Button variant="outline" size="lg" asChild>
                   <a
-                     href="https://linkedin.com/in/yourprofile"
+                     href={myLinkedinLink}
                      target="_blank"
                      rel="noopener noreferrer"
                      className="flex items-center gap-2"

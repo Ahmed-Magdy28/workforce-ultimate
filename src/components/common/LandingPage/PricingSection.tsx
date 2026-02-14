@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { Check, Sparkles } from 'lucide-react';
 
 export function PricingSection() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('landing');
 
    const plans = [
       {

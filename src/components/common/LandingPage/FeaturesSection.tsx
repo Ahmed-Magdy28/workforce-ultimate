@@ -23,7 +23,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 
 export function FeaturesSection() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('landing');
 
    const features = [
       {

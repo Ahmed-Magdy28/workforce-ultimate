@@ -1,0 +1,25 @@
+{
+    "contact": {
+        "title": "Get in Touch",
+        "subtitle": "I read every message personally. Whether it’s a question, feedback, bug report, feature idea — or just saying hello — I’ll get back to you (usually within 24–48 hours).",
+        "form": {
+            "title": "Send me a message",
+            "subtitle": "All fields are optional except the message — feel free to be direct.",
+            "name": "Your name (optional)",
+            "namePlaceholder": "Ahmed Ali",
+            "email": "Email address",
+            "subject": "Subject (optional)",
+            "subjectPlaceholder": "Bug in employee import / Feature idea / Just saying hi",
+            "message": "Your message",
+            "messagePlaceholder": "Hi Ahmed, I really like the RTL support but I noticed…",
+            "send": "Send Message",
+            "privacy": "Your email is only used to reply to you — never shared or spammed."
+        },
+        "quick": {
+            "title": "Quick ways to reach me"
+        },
+        "responseTime": "Response time",
+        "responseTimeDesc": "Usually 24–48 hours",
+        "location": "Based in"
+    }
+}

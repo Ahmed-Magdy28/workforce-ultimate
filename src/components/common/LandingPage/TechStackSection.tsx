@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ExternalLink } from 'lucide-react';
 
 export function TechStackSection() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('landing');
 
    const technologies = [
       {

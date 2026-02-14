@@ -12,10 +12,10 @@ import {
    Globe,
    CheckCircle2,
 } from 'lucide-react';
-import { projectGithubLink } from '@/utils/constants';
+import { myEmail, projectGithubLink } from '@/utils/constants';
 
 export default function CommunityPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('community');
 
    return (
       <div className="container max-w-5xl mx-auto px-4 py-12 md:py-20">
@@ -80,7 +80,7 @@ export default function CommunityPage() {
                               'GitHub Discussions',
                            ),
                            linkText: projectGithubLink,
-                           href: 'https://github.com/yourusername/yourproject/discussions',
+                           href: projectGithubLink,
                            desc: t(
                               'community.connect.githubDesc',
                               'Feature requests, bug reports, ideas — best place for technical conversations',
@@ -89,8 +89,8 @@ export default function CommunityPage() {
                         {
                            icon: <Mail className="h-5 w-5" />,
                            name: t('community.connect.email', 'Direct email'),
-                           linkText: 'ahmed@example.com',
-                           href: 'mailto:ahmed@example.com?subject=Community%20question%20or%20idea',
+                           linkText: myEmail,
+                           href: `mailto:${myEmail}?subject=Community%20question%20or%20idea`,
                            desc: t(
                               'community.connect.emailDesc',
                               'Private questions, longer feedback, or if you prefer not to post publicly',

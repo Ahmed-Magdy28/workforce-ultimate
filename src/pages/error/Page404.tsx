@@ -5,7 +5,7 @@ import { Home, Rocket, ArrowRight, Mail, BookOpen } from 'lucide-react';
 import { Link } from 'react-router';
 
 export default function Page404() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('404');
 
    return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-b from-background to-muted/40 px-4 py-12">

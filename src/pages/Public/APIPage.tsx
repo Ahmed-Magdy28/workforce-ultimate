@@ -20,7 +20,7 @@ import {
 import toast from 'react-hot-toast';
 
 export default function APIPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('api');
 
    const copyToClipboard = (text: string) => {
       navigator.clipboard.writeText(text);

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { FileText, Mail, ArrowRight } from 'lucide-react';
 
 export default function TermsPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('terms');
 
    return (
       <div className="container max-w-5xl mx-auto px-4 py-12 md:py-20">

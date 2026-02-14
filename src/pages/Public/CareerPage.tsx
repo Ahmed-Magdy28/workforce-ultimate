@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 export default function CareerPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('career');
 
    return (
       <div className="container max-w-5xl mx-auto px-4 py-12 md:py-20">

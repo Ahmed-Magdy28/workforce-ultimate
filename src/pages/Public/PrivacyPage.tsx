@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export default function SecurityPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('privacy');
 
    return (
       <div className="container max-w-5xl mx-auto px-4 py-12 md:py-20">

@@ -1,0 +1,53 @@
+{
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "logout": "Logout",
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "projects": "Projects",
+        "tasks": "Tasks",
+        "team": "Team",
+        "hr": "HR"
+    },
+    "public footer": {
+        "companyName": "Workforce Ultimate",
+        "description": "Empowering teams with intelligent workforce management solutions. Streamline your operations and boost productivity.",
+        "address": "23 abu fadl st, cairo, egypt",
+        "copyright": "All rights reserved.",
+        "newsletter": {
+            "title": "Subscribe to our newsletter",
+            "description": "Get the latest updates and news delivered to your inbox.",
+            "placeholder": "Enter your email",
+            "button": "Subscribe"
+        },
+        "product": {
+            "title": "Product",
+            "features": "Features",
+            "pricing": "Pricing",
+            "techStack": "Tech Stack",
+            "roadmap": "Roadmap"
+        },
+        "company": {
+            "title": "Company",
+            "about": "About Us",
+            "careers": "Careers",
+            "blog": "Blog",
+            "contact": "Contact"
+        },
+        "resources": {
+            "title": "Resources",
+            "documentation": "Documentation",
+            "apiReference": "API Reference",
+            "support": "Support Center",
+            "community": "Community"
+        },
+        "legal": {
+            "title": "Legal",
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service",
+            "cookies": "Cookie Policy",
+            "security": "Security"
+        }
+    }
+}

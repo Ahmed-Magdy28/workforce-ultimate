@@ -17,9 +17,10 @@ import {
    ArrowRight,
    Twitter,
 } from 'lucide-react';
+import { myEmail } from '@/utils/constants';
 
 export default function SecurityPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('security');
 
    return (
       <div className="container max-w-5xl mx-auto px-4 py-12 md:py-20">
@@ -315,7 +316,9 @@ export default function SecurityPage() {
 
                   <div className="flex flex-col sm:flex-row gap-4">
                      <Button size="lg" asChild>
-                        <a href="mailto:ahmed@example.com?subject=Security%20Vulnerability%20Report">
+                        <a
+                           href={`mailto:${myEmail}?subject=Security%20Vulnerability%20Report`}
+                        >
                            <Mail className="mr-2 h-5 w-5" />
                            {t('security.report.email', 'Email security report')}
                         </a>

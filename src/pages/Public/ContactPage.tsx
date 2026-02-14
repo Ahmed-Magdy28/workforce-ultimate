@@ -23,7 +23,7 @@ import {
 import { myEmail, myGithubLink, myLinkedinLink } from '@/utils/constants';
 
 export default function ContactPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('contact');
 
    return (
       <div className="container max-w-5xl mx-auto px-4 py-12 md:py-20">
@@ -220,7 +220,7 @@ export default function ContactPage() {
                               <Linkedin className="h-5 w-5 text-blue-600" />
                               <div className="text-left">
                                  <div className="font-medium">LinkedIn</div>
-                                 <div className="text-sm text-muted-foreground">
+                                 <div className="text-xs text-muted-foreground">
                                     {myLinkedinLink}
                                  </div>
                               </div>

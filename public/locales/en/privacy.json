@@ -1,0 +1,47 @@
+{
+    "security": {
+        "title": "Security & Data Protection",
+        "subtitle": "Security is not an afterthought — even though this is still a very small one-person project. Here’s what I do today to keep your data reasonably safe.",
+        "posture": {
+            "title": "Current Security Practices (2026)",
+            "auth": "Authentication",
+            "authDesc": "Supabase Auth (email + password, secure tokens, refresh rotation, rate limiting). No social logins yet.",
+            "rls": "Row Level Security (RLS)",
+            "rlsDesc": "Every table uses RLS. Users can only see and modify data belonging to their company.",
+            "encryption": "Encryption",
+            "encryptionDesc": "Data in transit: TLS 1.3 everywhere. Data at rest: encrypted by Supabase (PostgreSQL). Sensitive fields (if any) are encrypted client-side where possible.",
+            "storage": "File Storage",
+            "storageDesc": "Supabase Storage with signed URLs, public buckets avoided, file type & size restrictions.",
+            "monitoring": "Monitoring & Alerts",
+            "monitoringDesc": "Login attempts, failed auth, suspicious activity logged. Basic alerting via email for critical events.",
+            "limit": {
+                "title": "Current limitations",
+                "desc": "No formal SOC 2 yet, no bug bounty program, no external pentests (yet), single developer — so human error is the biggest risk right now."
+            }
+        },
+        "roadmap": {
+            "title": "Security Roadmap (what comes next)",
+            "subtitle": "As the product grows and brings in revenue, I plan to invest more seriously in security.",
+            "short": "Short-term",
+            "short1": "Enable 2FA / passkeys (already supported by Supabase)",
+            "short1desc": "Will enforce for admin roles first, then optional for everyone.",
+            "medium": "Medium-term",
+            "medium1": "External security audit / penetration test",
+            "medium1desc": "Once we have paying customers and meaningful data.",
+            "long": "Long-term",
+            "long1": "Bug bounty program",
+            "long1desc": "Invite ethical hackers to find issues with rewards.",
+            "long2": "SOC 2 / ISO 27001",
+            "long2desc": "Only when we have enterprise interest and budget."
+        },
+        "report": {
+            "title": "Found a security issue?",
+            "desc": "If you discover any security vulnerability — even small — please report it responsibly. I take every report seriously.",
+            "email": "Email security report",
+            "twitter": "DM me privately on X",
+            "note": "Please do not post vulnerabilities publicly until I’ve had reasonable time to fix them. Thank you for helping keep this safe."
+        },
+        "footer": "This page is intentionally straightforward because the product is still very early. Security will become more formal as we grow and take on paying customers.",
+        "footer.ps": "Thanks for caring about security — it matters to me too."
+    }
+}

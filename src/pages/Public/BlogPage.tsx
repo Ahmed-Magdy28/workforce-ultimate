@@ -22,7 +22,7 @@ type BlogPost = {
 };
 
 export default function BlogPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('blog');
 
    // Placeholder posts — replace with real data later (mdx, cms, supabase, etc.)
    const posts: BlogPost[] = [

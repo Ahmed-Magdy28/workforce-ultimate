@@ -45,7 +45,7 @@ type CategoryItem = {
 };
 
 export default function RoadMapPhase2() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('roadmap');
 
    const categories: CategoryItem[] = [
       {
@@ -324,7 +324,7 @@ export default function RoadMapPhase2() {
    return (
       <section className="space-y-8 pb-12">
          {/* Phase Header – always visible */}
-         <Card className="border-2 border-indigo-500/20 bg-gradient-to-br from-indigo-500/5 to-transparent">
+         <Card className="border-2 border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-transparent">
             <CardHeader>
                <div className="flex items-start justify-between">
                   <div className="flex items-start gap-4">
@@ -368,7 +368,7 @@ export default function RoadMapPhase2() {
                   </div>
                   <div className="h-3 w-full overflow-hidden rounded-full bg-muted">
                      <div
-                        className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 transition-all duration-500"
+                        className="h-full bg-linear-to-r from-indigo-500 to-indigo-600 transition-all duration-500"
                         style={{ width: `${progress}%` }}
                      />
                   </div>

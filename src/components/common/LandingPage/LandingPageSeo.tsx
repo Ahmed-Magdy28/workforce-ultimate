@@ -10,7 +10,7 @@ import {
 } from '@/utils/constants';
 
 export default function LandingPageSeo() {
-   const { t, i18n } = useTranslation();
+   const { t, i18n } = useTranslation('landing');
    const currentLang = i18n.language;
 
    const pageTitle = t(

@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/accordion';
 
 export default function RoadMapPhase1() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('roadmap');
 
    const categories = [
       {
@@ -55,7 +55,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.publicWebsite.aboutDesc',
                   'Company story, mission, vision, and team information',
                ),
-               status: 'in-progress' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -66,7 +66,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.publicWebsite.docsDesc',
                   'User guides, API reference, and tutorials',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.publicWebsite.api', 'API Reference'),
@@ -74,7 +74,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.publicWebsite.apiDesc',
                   'Placeholder for future API documentation',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.publicWebsite.careers', 'Careers Page'),
@@ -82,7 +82,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.publicWebsite.careersDesc',
                   'Job openings and application process',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.publicWebsite.blog', 'Blog Section'),
@@ -90,7 +90,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.publicWebsite.blogDesc',
                   'Articles, updates, and company news',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.publicWebsite.legal', 'Legal Pages'),
@@ -98,7 +98,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.publicWebsite.legalDesc',
                   'Privacy Policy, Terms of Service, Cookies Policy, Security',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
          ],
       },
@@ -201,12 +201,20 @@ export default function RoadMapPhase1() {
          bgColor: 'bg-orange-500/10',
          tasks: [
             {
+               name: t('roadmap.phase1.routing.public', 'Public Routes'),
+               description: t(
+                  'roadmap.phase1.routing.publicDesc',
+                  'a route to all the public pages',
+               ),
+               status: 'completed' as const,
+            },
+            {
                name: t('roadmap.phase1.routing.protected', 'Protected Routes'),
                description: t(
                   'roadmap.phase1.routing.protectedDesc',
                   'Prevent unauthorized access to dashboard',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.routing.redirect', 'Smart Redirects'),

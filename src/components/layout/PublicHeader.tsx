@@ -26,7 +26,7 @@ export function PublicHeader() {
 
    return (
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+         <div className="mx-auto flex h-16 max-w-360  md:text-3xl items-center justify-between px-4  sm:px-6 lg:px-8">
             {/* Logo */}
             <Link
                to="/"
@@ -34,10 +34,10 @@ export function PublicHeader() {
             >
                <img
                   src="/assets/icons/logo.png"
-                  className="h-10 w-10 object-contain"
+                  className="h-15 w-15 object-contain"
                   alt="Workforce Ultimate Logo"
                />
-               <span className="text-lg font-semibold tracking-tight sm:text-xl">
+               <span className="text-lg font-semibold tracking-tight sm:text-2xl">
                   {t('Workforce Ultimate')}
                </span>
             </Link>
@@ -46,12 +46,16 @@ export function PublicHeader() {
             <div className="flex items-center gap-3">
                {/* Auth Buttons - conditional based on current page */}
                {!isAuthPage && (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 sm:text-4xl">
                      <Button variant="ghost" asChild>
-                        <Link to="/login">{t('login', 'Login')}</Link>
+                        <Link className="sm:text-base" to="/login">
+                           {t('login', 'Login')}
+                        </Link>
                      </Button>
                      <Button asChild>
-                        <Link to="/signup">{t('signup', 'Sign Up')}</Link>
+                        <Link className="sm:text-base" to="/signup">
+                           {t('signup', 'Sign Up')}
+                        </Link>
                      </Button>
                   </div>
                )}

@@ -1,0 +1,23 @@
+{
+    "about": {
+        "title": "Built by one person — for people like you",
+        "subtitle": "Hi, I’m Ahmed — the only human writing code, answering support, fixing bugs, making coffee, and dreaming about this product at 3 a.m.",
+        "story": "The story behind this project",
+        "p1": "Like many solo founders, I got tired of using five different tools to manage even the simplest team/HR processes — and most of them were either too expensive, too complicated, or clearly not built by someone who actually uses them.",
+        "p2": "So in 2025 I decided to stop complaining and start building something I would actually want to use myself: clean, fast, honest, affordable, and made for small-to-medium teams that don’t have (and don’t want) a full HR department.",
+        "p3": "This is still very much version 1.x — but it’s improving every week because I use it myself every day.",
+        "values": "What I care about",
+        "value1": "Clean & maintainable code",
+        "value1desc": "Because I have to fix it at 2 a.m. when something breaks",
+        "value2": "Honest pricing",
+        "value2desc": "No hidden per-seat tricks, no enterprise bait-and-switch",
+        "value3": "Works in Arabic & English (RTL included)",
+        "value3desc": "Because I live in Cairo and many of my early users do too",
+        "value4": "Speed over features (for now)",
+        "value4desc": "50 ms response is more important than 50 new settings",
+        "connect": "Want to talk?",
+        "connectDesc": "I read every message. Whether it’s feedback, a bug, a feature idea, or just saying hi — I’ll answer personally.",
+        "email": "Email me",
+        "madeWith": "Made with love, too much coffee, and a lot of late nights in Cairo • 2025–2026"
+    }
+}

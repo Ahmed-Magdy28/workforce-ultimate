@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 
 export default function DocsPage() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('docs');
 
    const sections = [
       {

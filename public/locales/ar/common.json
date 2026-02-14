@@ -1,0 +1,57 @@
+{
+    "language": "العربية",
+    "login": "تسجيل الدخول",
+    "signin": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "dashboard": "لوحة التحكم",
+    "public header": {
+        "Workforce Ultimate": "Workforce Ultimate"
+    },
+    "sidebar": {
+        "dashboard": "لوحة التحكم",
+        "projects": "المشاريع",
+        "tasks": "المهام",
+        "team": "الفريق",
+        "hr": "مدير الموارد البشرية"
+    },
+    "public footer": {
+        "companyName": "Workforce Ultimate",
+        "description": "تمكين الفرق من خلال حلول ذكية لإدارة القوى العاملة. قم بتبسيط عملياتك وزيادة الإنتاجية.",
+        "newsletter": {
+            "title": "اشترك في النشرة الإخبارية",
+            "description": "احصل على آخر التحديثات والأخبار مباشرة في بريدك الإلكتروني.",
+            "placeholder": "أدخل بريدك الإلكتروني",
+            "button": "اشترك"
+        },
+        "address": "23 شارع أبو فضل، القاهرة، مصر",
+        "copyright": "جميع الحقوق محفوظة.",
+        "product": {
+            "title": "المنتج",
+            "features": "المزايا",
+            "pricing": "الأسعار",
+            "techStack": "تقنية المشروع",
+            "roadmap": "خطة الطريق"
+        },
+        "company": {
+            "title": "الشركة",
+            "about": "من نحن",
+            "careers": "الوظائف",
+            "blog": "المدونة",
+            "contact": "اتصل بنا"
+        },
+        "resources": {
+            "title": "الموارد",
+            "documentation": "التوثيق",
+            "apiReference": "مرجع API",
+            "support": "مركز الدعم",
+            "community": "المجتمع"
+        },
+        "legal": {
+            "title": "قانوني",
+            "privacy": "سياسة الخصوصية",
+            "terms": "شروط الخدمة",
+            "cookies": "سياسة الكوكيز",
+            "security": "الأمان"
+        }
+    }
+}

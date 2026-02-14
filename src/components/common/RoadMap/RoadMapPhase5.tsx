@@ -26,7 +26,7 @@ import {
 import type { JSX } from 'react';
 
 export default function RoadMapPhase5() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('roadmap');
 
    type TaskStatus = 'completed' | 'in-progress' | 'pending';
    type CategoryTask = {

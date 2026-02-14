@@ -1,0 +1,42 @@
+{
+    "docs": {
+        "title": "Documentation & Help Center",
+        "subtitle": "Everything you need to use, integrate with, or extend this product — written clearly by the one person building it.",
+        "search": {
+            "placeholder": "Search documentation…",
+            "hint": "Try: \"add employee\", \"reset password\", \"API authentication\""
+        },
+        "userGuide": {
+            "title": "User Guide",
+            "desc": "Step-by-step help for everyday users: setting up your company, adding employees, using work logs, goals, evaluations, etc.",
+            "badge": "Most visited"
+        },
+        "api": {
+            "title": "API Reference",
+            "desc": "REST API documentation — endpoints, authentication, rate limits, examples (cURL, JavaScript, Python).",
+            "badge": "Developers"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "desc": "Quick answers to common questions about accounts, billing, features, data privacy, limitations, and more."
+        },
+        "changelog": {
+            "title": "Changelog & Updates",
+            "desc": "What’s new, what’s fixed, what’s coming. Every release note written personally.",
+            "badge": "Latest: v1.2.3 – Feb 10, 2026"
+        },
+        "developer": {
+            "title": "Developer & Integration Guide",
+            "desc": "Custom integrations, webhooks, Zapier / Make.com setup, embed options, and advanced usage tips.",
+            "badge": "Advanced"
+        },
+        "readMore": "Explore this section",
+        "stillNeed": {
+            "title": "Still need help?",
+            "subtitle": "Can’t find what you’re looking for? Just reach out — I personally read and answer every message.",
+            "support": "Go to Support Page",
+            "contact": "Email me directly",
+            "ps": "P.S. If you notice something missing or unclear in the docs — please tell me. It helps everyone."
+        }
+    }
+}

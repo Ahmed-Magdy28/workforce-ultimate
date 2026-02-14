@@ -12,23 +12,23 @@ import {
    projectEmail,
    projectGithubLink,
 } from '../../utils/constants';
-
+// TODO: fix the tech/features/ if you are not in the page
 export function PublicFooter() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('common');
 
    const footerLinks = {
       product: [
          {
             label: t('public footer.product.features', 'Features'),
-            href: '#features',
+            href: '/#features',
          },
          {
             label: t('public footer.product.pricing', 'Pricing'),
-            href: '#pricing',
+            href: '/#pricing',
          },
          {
             label: t('public footer.product.techStack', 'Tech Stack'),
-            href: '#tech',
+            href: '/#tech',
          },
          {
             label: t('public footer.product.roadmap', 'Roadmap'),

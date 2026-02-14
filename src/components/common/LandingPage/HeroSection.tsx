@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 export function HeroSection() {
-   const { t } = useTranslation();
+   const { t } = useTranslation('landing');
 
    const features = [
       {

@@ -1,0 +1,42 @@
+{
+    "cookies": {
+        "title": "Cookies Policy",
+        "subtitle": "Last updated: February 12, 2026",
+        "intro": "This page explains what cookies we use, why we use them, and how you can manage them. Because this is a small one-person project, we keep cookie usage minimal and transparent.",
+        "section1": {
+            "title": "1. What are cookies?",
+            "p1": "Cookies are small text files that websites store on your device (computer, phone, tablet) when you visit them. They help the site remember information about your visit — like language preference, login state, or analytics — so the experience can be better next time.",
+            "p2": "We only use strictly necessary and minimal functional cookies — no heavy advertising trackers or third-party profiling."
+        },
+        "section2": {
+            "title": "2. Cookies we use",
+            "essential": "Essential / Strictly Necessary Cookies",
+            "alwaysOn": "Always on",
+            "essentialDesc": "These are required for the website to function properly. You cannot disable them.",
+            "functional": "Functional Cookies",
+            "optional": "Optional",
+            "functionalDesc": "These improve your experience but are not strictly required for basic functionality.",
+            "analytics": "Analytics & Third-party Cookies",
+            "analyticsDesc": "Currently: none. We do not use Google Analytics, Meta Pixel, Hotjar, Mixpanel or any external tracking service. If we ever add analytics in the future, we will update this page and ask for consent first."
+        },
+        "section3": {
+            "title": "3. How to manage or delete cookies",
+            "p1": "You can control cookies through your browser settings. Most browsers let you:",
+            "li1": "See what cookies are stored and delete them",
+            "li2": "Block cookies from specific sites",
+            "li3": "Block third-party cookies",
+            "li4": "Turn off cookies completely (may break login/session)",
+            "p2": "Because we only use essential & minimal functional cookies, blocking them may make login, language selection, or theme persistence stop working properly."
+        },
+        "section4": {
+            "title": "Questions about cookies?",
+            "p1": "If anything is unclear, or you have concerns about how we use cookies, just reach out — I read every message personally."
+        },
+        "contact": {
+            "email": "Email me",
+            "page": "Go to Contact page"
+        },
+        "footer": "We keep this policy short and honest because this is still a very small project. It may grow more detailed as we add features or third-party services in the future.",
+        "footer.ps": "Thanks for reading — and for trusting us with your data."
+    }
+}

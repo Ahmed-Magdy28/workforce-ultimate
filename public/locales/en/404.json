@@ -1,0 +1,13 @@
+{
+    "404": {
+        "title": "Page not found",
+        "subtitle": "Looks like this page took a coffee break… or maybe I just haven’t built it yet.",
+        "soloNote": "(This is still a one-person project — sometimes things go missing while I’m shipping new features)",
+        "backHome": "Back to Home",
+        "browseDocs": "Browse Documentation",
+        "report": "Tell me what broke",
+        "funMessage": "While you’re here… want to help make this project bigger? I’m looking for early collaborators →",
+        "careersLink": "See Careers / Collaboration page",
+        "footer": "Error 404 — Not Found • Cairo, 2026"
+    }
+}

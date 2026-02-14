@@ -1,0 +1,49 @@
+{
+    "security": {
+        "title": "Security & Data Protection",
+        "subtitle": "Security matters — even though this is still a very small one-person project built in Cairo. Here’s what I currently do to keep your data reasonably safe, and what I plan to improve as we grow.",
+        "measures": {
+            "title": "Current Security Practices (February 2026)",
+            "auth": "Authentication",
+            "authDesc": "Supabase Auth with secure password hashing, rate limiting on login attempts, refresh token rotation, and session invalidation on password change.",
+            "rls": "Row Level Security (RLS)",
+            "rlsDesc": "Every table enforces RLS policies. Users can only read/write data that belongs to their company/tenant — enforced at the database level.",
+            "tls": "Encryption in Transit",
+            "tlsDesc": "All traffic uses TLS 1.3 (modern browsers enforce this). Supabase edge + CDN also enforce HTTPS.",
+            "storage": "File Storage Security",
+            "storageDesc": "Supabase Storage with private buckets by default, signed temporary URLs for downloads, file size & type restrictions, no public URLs.",
+            "logging": "Access & Activity Logging",
+            "loggingDesc": "Basic audit trail for important actions (login, password change, role changes, file uploads). Logs are stored securely and retained for troubleshooting.",
+            "limits": {
+                "title": "Current limitations",
+                "desc": "No formal SOC 2 / ISO 27001 yet, no external penetration tests, no bug bounty program, single developer — human error remains the biggest risk at this stage."
+            }
+        },
+        "roadmap": {
+            "title": "Security Roadmap",
+            "subtitle": "What I plan to improve as the product grows and brings in revenue.",
+            "short": "Short-term (next 1–3 months)",
+            "2fa": "Enable 2FA / passkeys",
+            "2faDesc": "Already supported by Supabase — will make mandatory for admin/manager roles first.",
+            "medium": "Medium-term (3–12 months)",
+            "audit": "External security audit / pentest",
+            "auditDesc": "Once we have paying customers and meaningful usage.",
+            "monitoring": "Better monitoring & alerting",
+            "monitoringDesc": "Failed logins, suspicious IP patterns, large file uploads, unusual query patterns.",
+            "long": "Long-term / when enterprise-ready",
+            "bounty": "Public bug bounty program",
+            "bountyDesc": "Reward ethical hackers for finding real issues.",
+            "compliance": "SOC 2 Type 1 / Type 2",
+            "complianceDesc": "Only when we have enterprise interest and budget to justify the cost."
+        },
+        "report": {
+            "title": "Found a potential security issue?",
+            "desc": "If you discover any vulnerability — even something small — please report it responsibly. I take every report seriously and will respond quickly.",
+            "email": "Email security report",
+            "twitter": "DM me privately on X",
+            "note": "Please do NOT post vulnerabilities publicly until I’ve had a reasonable time to fix them. Thank you for helping keep this safe."
+        },
+        "footer": "This page is intentionally straightforward because the product is still very early. Security practices will become more formal (and more documented) as we grow and take on paying customers.",
+        "footer.ps": "Thanks for caring about security — it matters to me too."
+    }
+}

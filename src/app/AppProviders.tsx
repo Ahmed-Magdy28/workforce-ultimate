@@ -8,19 +8,28 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import { store } from './store';
 import { queryClient } from './queryClient';
+import GlobalEffects from '@/components/common/GlobalEffects';
 
 type Props = {
    children: ReactNode;
 };
-
+// Todo: remove ReactQueryDevtools in production
 export default function AppProviders({ children }: Props) {
    return (
       <Provider store={store}>
          <QueryClientProvider client={queryClient}>
             <BrowserRouter>
-               <HelmetProvider>{children}</HelmetProvider>
+               {/* HelmetProvider for seo */}
+               <HelmetProvider>
+                  {/* GlobalEffect For Theme and i18 for now  */}
+                  <GlobalEffects />
+                  {children}
+               </HelmetProvider>
+
                <Toaster position="top-right" />
             </BrowserRouter>
+
+            {/*Todo: remove ReactQueryDevtools in production  */}
             <ReactQueryDevtools initialIsOpen={false} />
          </QueryClientProvider>
       </Provider>

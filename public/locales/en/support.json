@@ -1,0 +1,42 @@
+{
+    "support": {
+        "title": "Help & Support",
+        "subtitle": "This is still a very small one-person project, so support is personal and direct — I answer every message myself (usually within 24–48 hours).",
+        "email": {
+            "title": "Email me",
+            "desc": "Best for detailed questions, screenshots, bug reports, feature requests, or anything private.",
+            "action": "Open email client",
+            "note": "ahmedmagdy2849@gmail.com"
+        },
+        "chat": {
+            "title": "Quick chat",
+            "desc": "Fastest way for short questions, clarifications or “is this a bug?” moments.",
+            "twitter": "DM me on X",
+            "telegram": "Telegram (coming soon)"
+        },
+        "faq": {
+            "title": "Common Questions",
+            "desc": "Quick answers to things people usually ask before emailing me.",
+            "action": "Read the FAQ",
+            "note": "(Page under construction — coming soon)"
+        },
+        "tips": {
+            "title": "How to get fastest & best help",
+            "screenshot": "Include screenshots",
+            "screenshotDesc": "especially for bugs or UI confusion",
+            "browser": "Mention browser & device",
+            "browserDesc": "Chrome on Android, Safari on iPhone 14, etc.",
+            "steps": "Describe steps to reproduce",
+            "stepsDesc": "“I clicked X → then Y → got error Z”",
+            "expect": "Tell me what you expected vs what happened",
+            "ps": "The more clear & detailed your message is → the faster I can understand and fix/help."
+        },
+        "cta": {
+            "title": "Ready to get help?",
+            "subtitle": "Just send me a message — no forms, no tickets, no waiting in queue. I’m the only one reading them.",
+            "email": "Email me now",
+            "twitter": "DM me on X",
+            "ps": "Thank you for using and supporting this tiny project — every message helps me make it better."
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "community": {
+        "title": "Community",
+        "subtitle": "This project is still very young and built by one person. A small, kind community can help it grow 10× faster — through ideas, feedback, translations, bug reports, or just cheering from the sidelines.",
+        "connect": {
+            "title": "Where to find & join us",
+            "twitter": "Quick updates, polls, behind-the-scenes, and casual chats",
+            "telegram": "(coming soon)",
+            "telegramDesc": "Planned for real-time discussions — join waitlist if interested",
+            "github": "GitHub Discussions",
+            "githubDesc": "Feature requests, bug reports, ideas — best place for technical conversations",
+            "email": "Direct email",
+            "emailDesc": "Private questions, longer feedback, or if you prefer not to post publicly"
+        },
+        "values": {
+            "title": "What this community values",
+            "kind": "Kindness and respect — no toxicity, gatekeeping or drama",
+            "honest": "Honest feedback — even (especially) if it’s critical",
+            "help": "Helping each other — experienced users helping newcomers",
+            "build": "Building in public — sharing wins, fails, and lessons",
+            "ps": "P.S. This is not a huge polished Discord with 10k members (yet). It’s small, personal, and human — just how I like it for now."
+        },
+        "join": {
+            "title": "Want to be part of this early community?",
+            "subtitle": "No pressure, no big commitment. Just show up, say hi, share an idea, report something annoying, or help someone else — every small action counts.",
+            "twitter": "Follow & say hi on X",
+            "email": "Email me your thoughts",
+            "ps": "Thank you in advance — even just reading this page and thinking “this guy is trying hard” already means a lot."
+        }
+    }
+}
