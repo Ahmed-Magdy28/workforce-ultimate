@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Globe, Moon, Sun } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/app/store';
 import { toggleTheme } from '@/features/theme/themeSlice';
-import { useEffect } from 'react';
 
 export function PublicHeader() {
    const { i18n, t } = useTranslation();
@@ -14,58 +13,44 @@ export function PublicHeader() {
    const isAuthPage =
       location.pathname === '/login' || location.pathname === '/signup';
 
-   // Apply theme to document
-   useEffect(() => {
-      const root = document.documentElement;
-      root.classList.remove('light', 'dark');
-      root.classList.add(theme);
-   }, [theme]);
    const handleThemeToggle = () => {
       dispatch(toggleTheme());
    };
 
    return (
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-         <div className="mx-auto flex h-16 max-w-360  md:text-3xl items-center justify-between px-4  sm:px-6 lg:px-8">
-            {/* Logo */}
+         <div className="mx-auto flex min-h-16 w-full max-w-screen-2xl items-center justify-between gap-3 px-4 py-2 sm:px-6 lg:px-8">
             <Link
                to="/"
-               className="flex items-center gap-2 transition-opacity hover:opacity-80"
+               className="flex min-w-0 items-center gap-2 transition-opacity hover:opacity-80 sm:gap-3"
             >
                <img
                   src="/assets/icons/logo.png"
-                  className="h-15 w-15 object-contain"
+                  className="h-15 w-15 shrink-0 object-contain sm:h-10 sm:w-10"
                   alt="Workforce Ultimate Logo"
                />
-               <span className="text-lg font-semibold tracking-tight sm:text-2xl">
+               <span className="max-w-36 truncate text-sm font-semibold tracking-tight sm:max-w-none sm:text-lg md:text-xl">
                   {t('Workforce Ultimate')}
                </span>
             </Link>
 
-            {/* Navigation & Actions */}
-            <div className="flex items-center gap-3">
-               {/* Auth Buttons - conditional based on current page */}
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
                {!isAuthPage && (
-                  <div className="flex items-center gap-2 sm:text-4xl">
-                     <Button variant="ghost" asChild>
-                        <Link className="sm:text-base" to="/login">
-                           {t('login', 'Login')}
-                        </Link>
+                  <div className="flex items-center gap-2">
+                     <Button variant="ghost" size="sm" asChild>
+                        <Link to="/login">{t('login', 'Login')}</Link>
                      </Button>
-                     <Button asChild>
-                        <Link className="sm:text-base" to="/signup">
-                           {t('signup', 'Sign Up')}
-                        </Link>
+                     <Button size="sm" asChild>
+                        <Link to="/signup">{t('signup', 'Sign Up')}</Link>
                      </Button>
                   </div>
                )}
 
-               {/* Theme Toggle */}
                <Button
                   variant="outline"
                   size="icon"
                   onClick={handleThemeToggle}
-                  className="h-9 w-9"
+                  className="h-9 w-9 shrink-0"
                   aria-label="Toggle theme"
                >
                   {theme === 'light' ? (
@@ -80,14 +65,13 @@ export function PublicHeader() {
                   </span>
                </Button>
 
-               {/* Language Switcher */}
                <Button
                   variant="outline"
                   size="icon"
                   onClick={() =>
                      i18n.changeLanguage(i18n.language === 'en' ? 'ar' : 'en')
                   }
-                  className="h-9 w-9"
+                  className="h-9 w-9 shrink-0"
                   aria-label="Switch language"
                >
                   <Globe className="h-4 w-4" />
