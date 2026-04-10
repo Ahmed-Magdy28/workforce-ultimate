@@ -1,9 +1,5 @@
 import { supabase } from '@/services/supabase';
-import type {
-   Company,
-   EmployeeRole,
-   EmployeeWithTeam,
-} from '@/types/apis';
+import type { Company, EmployeeRole, EmployeeWithTeam } from '@/types/apis';
 
 export type CreateCompanyInput = {
    name: string;

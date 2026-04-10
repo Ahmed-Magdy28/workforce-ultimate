@@ -264,7 +264,9 @@ export default function Navbar() {
                                  className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left hover:bg-muted"
                               >
                                  <span>{option}</span>
-                                 <span className="text-muted-foreground">On</span>
+                                 <span className="text-muted-foreground">
+                                    On
+                                 </span>
                               </button>
                            ))}
                         </div>

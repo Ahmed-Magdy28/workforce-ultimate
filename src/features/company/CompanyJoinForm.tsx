@@ -69,7 +69,9 @@ function InvitationStatusCard({
          }
       >
          <p className="text-sm font-semibold">
-            {invitation.valid ? 'Invitation is valid' : 'Invitation is not valid'}
+            {invitation.valid
+               ? 'Invitation is valid'
+               : 'Invitation is not valid'}
          </p>
          <p className="mt-1 text-sm leading-6 text-muted-foreground">
             {invitation.valid
@@ -109,8 +111,9 @@ export default function CompanyJoinForm() {
       },
    });
 
-   const { mutateAsync: joinCompany, isPending: isJoiningCompany } = useMutation({
-      mutationFn: joinCompanyWithInvitationAPI,
+   const { mutateAsync: joinCompany, isPending: isJoiningCompany } =
+      useMutation({
+         mutationFn: joinCompanyWithInvitationAPI,
          onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ['user'] });
             await queryClient.invalidateQueries({ queryKey: ['companies'] });
@@ -119,13 +122,13 @@ export default function CompanyJoinForm() {
             });
             await queryClient.invalidateQueries({ queryKey: ['company'] });
 
-         toast.success('You joined the company successfully.');
-         reset();
-      },
-      onError: (error: Error) => {
-         toast.error(error.message);
-      },
-   });
+            toast.success('You joined the company successfully.');
+            reset();
+         },
+         onError: (error: Error) => {
+            toast.error(error.message);
+         },
+      });
 
    async function handleValidateClick() {
       const inviteCode = getValues('inviteCode');
@@ -245,7 +248,9 @@ export default function CompanyJoinForm() {
                            onClick={handleValidateClick}
                            className="sm:w-auto"
                         >
-                           {isValidatingInvitation ? 'Checking...' : 'Validate code'}
+                           {isValidatingInvitation
+                              ? 'Checking...'
+                              : 'Validate code'}
                         </Button>
                      </div>
                      <FieldError message={errors.inviteCode?.message} />

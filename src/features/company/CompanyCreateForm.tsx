@@ -266,7 +266,9 @@ export default function CompanyCreateForm() {
                         </div>
 
                         <div className="space-y-2 md:col-span-2">
-                           <Label htmlFor="description">Short description</Label>
+                           <Label htmlFor="description">
+                              Short description
+                           </Label>
                            <Textarea
                               id="description"
                               rows={4}
@@ -305,8 +307,7 @@ export default function CompanyCreateForm() {
                               {...register('website', {
                                  required: 'Website is required',
                                  pattern: {
-                                    value:
-                                       /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i,
+                                    value: /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i,
                                     message: 'Enter a valid website URL',
                                  },
                               })}

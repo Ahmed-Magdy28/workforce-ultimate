@@ -134,7 +134,7 @@ export default function NewCompany() {
                               </div>
                            </CardHeader>
                            <CardContent>
-                                 <Button
+                              <Button
                                  type="button"
                                  variant={isActive ? 'default' : 'outline'}
                                  className="w-full"

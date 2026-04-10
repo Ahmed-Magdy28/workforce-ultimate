@@ -1,4 +1,11 @@
-import { Building2, Globe, Mail, MapPin, Phone, ShieldCheck } from 'lucide-react';
+import {
+   Building2,
+   Globe,
+   Mail,
+   MapPin,
+   Phone,
+   ShieldCheck,
+} from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 
 import {
@@ -64,7 +71,8 @@ export default function CompanyData() {
                      {company.name}
                   </CardTitle>
                   <CardDescription className="text-sm leading-6 sm:text-base">
-                     {company.description || 'No company description added yet.'}
+                     {company.description ||
+                        'No company description added yet.'}
                   </CardDescription>
                </div>
             </CardHeader>
@@ -77,7 +85,10 @@ export default function CompanyData() {
                   value={company.subscription_limit}
                />
                <InfoRow label="Timezone" value={company.timezone} />
-               <InfoRow label="Status" value={company.is_active ? 'Active' : 'Inactive'} />
+               <InfoRow
+                  label="Status"
+                  value={company.is_active ? 'Active' : 'Inactive'}
+               />
             </CardContent>
          </Card>
 
@@ -121,8 +132,14 @@ export default function CompanyData() {
                <CardContent className="grid gap-4">
                   <InfoRow label="Company ID" value={company.id} />
                   <InfoRow label="Owner ID" value={company.owner_id} />
-                  <InfoRow label="Created at" value={new Date(company.created_at).toLocaleString()} />
-                  <InfoRow label="Updated at" value={new Date(company.updated_at).toLocaleString()} />
+                  <InfoRow
+                     label="Created at"
+                     value={new Date(company.created_at).toLocaleString()}
+                  />
+                  <InfoRow
+                     label="Updated at"
+                     value={new Date(company.updated_at).toLocaleString()}
+                  />
                </CardContent>
             </Card>
 
@@ -134,8 +151,13 @@ export default function CompanyData() {
                   </CardTitle>
                </CardHeader>
                <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground">
-                  <p>Your company has been created and linked to your account.</p>
-                  <p>Next step: invite teammates or let them join with an invitation code.</p>
+                  <p>
+                     Your company has been created and linked to your account.
+                  </p>
+                  <p>
+                     Next step: invite teammates or let them join with an
+                     invitation code.
+                  </p>
                   <div className="grid gap-3 pt-2">
                      <div className="flex items-center gap-2 rounded-xl border border-border/70 p-3 text-foreground">
                         <Mail className="size-4 text-primary" />
