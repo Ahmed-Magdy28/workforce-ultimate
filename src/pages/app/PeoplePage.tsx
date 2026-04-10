@@ -191,8 +191,9 @@ export default function PeoplePage() {
                   <div className="text-sm font-medium">
                      All users ({people.length})
                   </div>
-
+                  {/* TODO: fix this later */}
                   <select
+                     title="dont know what to right"
                      value={selectedFilter}
                      onChange={(event) =>
                         setSelectedFilter(event.target.value as PeopleFilter)
@@ -269,7 +270,8 @@ export default function PeoplePage() {
                                     colSpan={7}
                                     className="px-4 py-8 text-center text-muted-foreground"
                                  >
-                                    No people match the current search or filter.
+                                    No people match the current search or
+                                    filter.
                                  </td>
                               </tr>
                            )}
