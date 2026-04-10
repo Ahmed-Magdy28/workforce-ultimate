@@ -14,8 +14,8 @@ import {
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
-import { useLogin } from '@/features/auth/hooks/useLogin';
 import { Spinner } from '@/components/ui/spinner';
+import useLogin from '@/features/auth/hooks/useLogin';
 
 export default function LoginPage() {
    // TODO: when finish to remove this fake data
@@ -29,7 +29,7 @@ export default function LoginPage() {
    const [showPassword, setShowPassword] = useState(false);
    const [rememberMe, setRememberMe] = useState(false);
    const [error, setError] = useState('');
-   const { login, isPending } = useLogin();
+   const { login, isLoggingIn } = useLogin();
 
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -43,7 +43,7 @@ export default function LoginPage() {
 
       login({ email, password });
    };
-   if (isPending) return <Spinner />;
+   if (isLoggingIn) return <Spinner />;
 
    return (
       <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4">
@@ -132,8 +132,12 @@ export default function LoginPage() {
                      </label>
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={isPending}>
-                     {isPending ? 'Signing in...' : 'Sign in'}
+                  <Button
+                     type="submit"
+                     className="w-full"
+                     disabled={isLoggingIn}
+                  >
+                     {isLoggingIn ? 'Signing in...' : 'Sign in'}
                   </Button>
                </form>
             </CardContent>

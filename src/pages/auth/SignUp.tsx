@@ -1,8 +1,5 @@
-import { useState } from 'react';
 import { Link } from 'react-router';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+
 import {
    Card,
    CardContent,
@@ -11,163 +8,84 @@ import {
    CardHeader,
    CardTitle,
 } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
+import SignupForm from './SignupForm';
 
 export default function Signup() {
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
-   const [confirmPassword, setConfirmPassword] = useState('');
-   const [showPassword, setShowPassword] = useState(false);
-   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-   const [error, setError] = useState('');
-   const [loading, setLoading] = useState(false);
-
-   const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setError('');
-
-      // Validation
-      if (!email || !password || !confirmPassword) {
-         setError('All fields are required');
-         return;
-      }
-
-      if (password !== confirmPassword) {
-         setError('Passwords do not match');
-         return;
-      }
-
-      if (password.length < 8) {
-         setError('Password must be at least 8 characters long');
-         return;
-      }
-
-      setLoading(true);
-
-      try {
-         // Add your signup logic here
-         console.log('Signup:', { email, password });
-
-         // Simulate API call
-         await new Promise((resolve) => setTimeout(resolve, 1000));
-      } catch (err: unknown) {
-         console.log(err);
-         setError('An error occurred during signup. Please try again.');
-      } finally {
-         setLoading(false);
-      }
-   };
-
    return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4">
-         <Card className="w-full max-w-md shadow-lg">
-            <CardHeader className="space-y-1">
-               <CardTitle className="text-2xl font-bold text-center">
-                  Create an account
-               </CardTitle>
-               <CardDescription className="text-center">
-                  Enter your email and password to sign up
-               </CardDescription>
-            </CardHeader>
-            <CardContent>
-               <form onSubmit={handleSubmit} className="space-y-4">
-                  {error && (
-                     <Alert variant="destructive">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertDescription>{error}</AlertDescription>
-                     </Alert>
-                  )}
+      <section className="bg-linear-to-br from-background via-background to-muted/30 px-3 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-10">
+         <div className="mx-auto w-full max-w-6xl">
+            <Card className="overflow-hidden border-0 bg-transparent shadow-none sm:border sm:bg-card sm:shadow-xl">
+               <div className="grid lg:min-h-[calc(100vh-12rem)] lg:grid-cols-[1.05fr_0.95fr]">
+                  <div className="hidden bg-muted/40 p-10 lg:flex lg:flex-col lg:justify-between xl:p-14">
+                     <div className="space-y-6">
+                        <p className="text-sm font-medium uppercase tracking-[0.22em] text-primary">
+                           Workforce Ultimate
+                        </p>
+                        <div className="space-y-4">
+                           <h1 className="max-w-xl text-4xl font-bold tracking-tight xl:text-5xl">
+                              Create your workspace account in one clean step.
+                           </h1>
+                           <p className="max-w-lg text-base leading-7 text-muted-foreground">
+                              This layout keeps the form focused while using the
+                              desktop space in a more balanced way.
+                           </p>
+                        </div>
+                     </div>
 
-                  <div className="space-y-2">
-                     <Label htmlFor="email">Email</Label>
-                     <div className="relative">
-                        <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                        <Input
-                           id="email"
-                           type="email"
-                           placeholder="name@example.com"
-                           value={email}
-                           onChange={(e) => setEmail(e.target.value)}
-                           className="pl-10"
-                           required
-                        />
+                     <div className="grid gap-4 xl:grid-cols-2">
+                        <div className="rounded-2xl border bg-background/80 p-5">
+                           <p className="text-sm font-medium text-foreground">
+                              Fast setup
+                           </p>
+                           <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                              Create your account and move into the app without
+                              a crowded form.
+                           </p>
+                        </div>
+                        <div className="rounded-2xl border bg-background/80 p-5">
+                           <p className="text-sm font-medium text-foreground">
+                              Responsive by default
+                           </p>
+                           <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                              Mobile stays compact while desktop feels full and
+                              intentional.
+                           </p>
+                        </div>
                      </div>
                   </div>
 
-                  <div className="space-y-2">
-                     <Label htmlFor="password">Password</Label>
-                     <div className="relative">
-                        <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                        <Input
-                           id="password"
-                           type={showPassword ? 'text' : 'password'}
-                           placeholder="••••••••"
-                           value={password}
-                           onChange={(e) => setPassword(e.target.value)}
-                           className="pl-10 pr-10"
-                           required
-                        />
-                        <button
-                           type="button"
-                           onClick={() => setShowPassword(!showPassword)}
-                           className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                        >
-                           {showPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                           ) : (
-                              <Eye className="h-4 w-4" />
-                           )}
-                        </button>
+                  <div className="flex items-center rounded-2xl bg-card p-4 shadow-sm sm:p-8 sm:shadow-none lg:rounded-none lg:bg-transparent lg:p-10 xl:p-14">
+                     <div className="w-full">
+                        <CardHeader className="space-y-2 px-0 pb-5 text-center sm:pb-6 lg:text-left">
+                           <div className="mx-auto inline-flex w-fit items-center rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground lg:hidden">
+                              Workforce Ultimate
+                           </div>
+                           <CardTitle className="text-xl font-bold sm:text-3xl">
+                              Create an account
+                           </CardTitle>
+                           <CardDescription className="text-sm sm:text-base">
+                              Enter your name, email, and password to sign up.
+                           </CardDescription>
+                        </CardHeader>
+                        <CardContent className="px-0">
+                           <SignupForm />
+                        </CardContent>
+                        <CardFooter className="justify-center px-0 pt-5 lg:justify-start">
+                           <p className="text-center text-sm text-muted-foreground lg:text-left">
+                              Already have an account?{' '}
+                              <Link
+                                 to="/login"
+                                 className="font-medium text-primary hover:underline"
+                              >
+                                 Sign in
+                              </Link>
+                           </p>
+                        </CardFooter>
                      </div>
                   </div>
-
-                  <div className="space-y-2">
-                     <Label htmlFor="confirmPassword">Confirm Password</Label>
-                     <div className="relative">
-                        <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                        <Input
-                           id="confirmPassword"
-                           type={showConfirmPassword ? 'text' : 'password'}
-                           placeholder="••••••••"
-                           value={confirmPassword}
-                           onChange={(e) => setConfirmPassword(e.target.value)}
-                           className="pl-10 pr-10"
-                           required
-                        />
-                        <button
-                           type="button"
-                           onClick={() =>
-                              setShowConfirmPassword(!showConfirmPassword)
-                           }
-                           className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                        >
-                           {showConfirmPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                           ) : (
-                              <Eye className="h-4 w-4" />
-                           )}
-                        </button>
-                     </div>
-                  </div>
-
-                  <Button type="submit" className="w-full" disabled={loading}>
-                     {loading ? 'Creating account...' : 'Sign up'}
-                  </Button>
-               </form>
-            </CardContent>
-            <CardFooter className="flex justify-center">
-               <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Already have an account?{' '}
-                  <Link
-                     to="/login"
-                     className="font-medium text-primary hover:underline"
-                  >
-                     Sign in
-                  </Link>
-               </p>
-            </CardFooter>
-         </Card>
-      </div>
+               </div>
+            </Card>
+         </div>
+      </section>
    );
 }

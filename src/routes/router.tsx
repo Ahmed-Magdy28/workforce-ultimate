@@ -23,6 +23,19 @@ import SecurityPage from '@/pages/Public/SecurityPage';
 import SettingsPage from '@/pages/Public/SettingsPage';
 import RoadMapPage from '@/pages/Public/RoadMapPage';
 import CookiesPage from '@/pages/Public/CookiesPage';
+import Company from '@/pages/company/Company';
+import Unauthorized from '@/pages/error/Unauthorized';
+import AppLayout from '@/components/layout/AppLayout';
+import HomePage from '@/pages/app/HomePage';
+import PlannerPage from '@/pages/app/PlannerPage';
+import TeamsPage from '@/pages/app/TeamsPage';
+import MorePage from '@/pages/app/MorePage';
+import InvitePage from '@/pages/app/InvitePage';
+import UpgradePage from '@/pages/app/UpgradePage';
+import HRDashboard from '@/pages/dashboard/HRDashboard';
+import PeoplePage from '@/pages/app/PeoplePage';
+import AppSettingsPage from '@/pages/app/AppSettingsPage';
+import HelpPage from '@/pages/app/HelpPage';
 
 export default function AppRoutes() {
    return (
@@ -50,39 +63,57 @@ export default function AppRoutes() {
             <Route path="/forgotpassword" element={<ForgotPassword />} />
          </Route>
 
-         {/* Employee */}
-         <Route
-            path="/dashboard/employee"
-            element={
-               <ProtectedRoute>
-                  <RoleGuard allowedRoles={['EMPLOYEE']}>
-                     <EmployeeDashboard />
-                  </RoleGuard>
-               </ProtectedRoute>
-            }
-         />
+         <Route element={<ProtectedRoute />}>
+            <Route element={<AppLayout />}>
+               <Route path="/company" element={<Company />} />
+               <Route path="/app/home" element={<HomePage />} />
+               <Route path="/planner" element={<PlannerPage />} />
+               <Route path="/teams" element={<TeamsPage />} />
+               <Route path="/more" element={<MorePage />} />
+               <Route path="/upgrade" element={<UpgradePage />} />
+               <Route path="/invite" element={<InvitePage />} />
+               <Route path="/people" element={<PeoplePage />} />
+               <Route path="/app/settings" element={<AppSettingsPage />} />
+               <Route path="/app/help" element={<HelpPage />} />
 
-         {/* Manager */}
-         <Route
-            path="/dashboard/manager"
-            element={
-               <ProtectedRoute>
-                  <RoleGuard
-                     allowedRoles={[
-                        'MANAGER',
-                        'SENIOR_MANAGER',
-                        'REGIONAL_MANAGER',
-                        'HR',
-                     ]}
-                  >
-                     <ManagerDashboard />
-                  </RoleGuard>
-               </ProtectedRoute>
-            }
-         />
+               <Route
+                  path="/dashboard/employee"
+                  element={
+                     <RoleGuard allowedRoles={['EMPLOYEE']}>
+                        <EmployeeDashboard />
+                     </RoleGuard>
+                  }
+               />
+
+               <Route
+                  path="/dashboard/manager"
+                  element={
+                     <RoleGuard
+                        allowedRoles={[
+                           'MANAGER',
+                           'SENIOR_MANAGER',
+                           'REGIONAL_MANAGER',
+                           'HR',
+                        ]}
+                     >
+                        <ManagerDashboard />
+                     </RoleGuard>
+                  }
+               />
+
+               <Route
+                  path="/dashboard/hr"
+                  element={
+                     <RoleGuard allowedRoles={['HR']}>
+                        <HRDashboard />
+                     </RoleGuard>
+                  }
+               />
+            </Route>
+         </Route>
 
          {/* Errors */}
-         {/* <Route path="/unauthorized" element={<Unauthorized />} /> */}
+         <Route path="/unauthorized" element={<Unauthorized />} />
          <Route path="*" element={<Page404 />} />
       </Routes>
    );

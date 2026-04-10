@@ -1,40 +1,56 @@
-import type { Role } from '@/types/roles';
+import {
+   CalendarDays,
+   Crown,
+   FolderKanban,
+   Home,
+   MoreHorizontal,
+   Users,
+} from 'lucide-react';
 
-export type SidebarItem = {
-   label: string; // i18n key
+export type AppSidebarItem = {
+   label: string;
    path: string;
-   roles: Role[];
+   icon: typeof Home;
+   section: 'primary' | 'secondary';
+   adminOnly?: boolean;
 };
 
-export const SIDEBAR_ITEMS: SidebarItem[] = [
+export const SIDEBAR_ITEMS: AppSidebarItem[] = [
    {
-      label: 'sidebar.dashboard',
-      path: '/dashboard/employee',
-      roles: ['EMPLOYEE'],
+      label: 'Home',
+      path: '/app/home',
+      icon: Home,
+      section: 'primary',
    },
    {
-      label: 'sidebar.dashboard',
-      path: '/dashboard/manager',
-      roles: ['MANAGER', 'SENIOR_MANAGER', 'REGIONAL_MANAGER', 'HR'],
+      label: 'Planner',
+      path: '/planner',
+      icon: CalendarDays,
+      section: 'primary',
    },
    {
-      label: 'sidebar.projects',
-      path: '/projects',
-      roles: ['MANAGER', 'SENIOR_MANAGER', 'REGIONAL_MANAGER'],
+      label: 'Teams',
+      path: '/teams',
+      icon: Users,
+      section: 'primary',
    },
    {
-      label: 'sidebar.tasks',
-      path: '/tasks',
-      roles: ['EMPLOYEE', 'MANAGER'],
+      label: 'More',
+      path: '/more',
+      icon: MoreHorizontal,
+      section: 'primary',
    },
    {
-      label: 'sidebar.team',
-      path: '/team',
-      roles: ['MANAGER', 'HR'],
+      label: 'Invite',
+      path: '/invite',
+      icon: FolderKanban,
+      section: 'secondary',
+      adminOnly: true,
    },
    {
-      label: 'sidebar.hr',
-      path: '/hr',
-      roles: ['HR'],
+      label: 'Upgrade',
+      path: '/upgrade',
+      icon: Crown,
+      section: 'secondary',
    },
 ];
