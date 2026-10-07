@@ -1,5 +1,7 @@
+'use client';
+
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
    Card,
@@ -189,7 +191,7 @@ export function PricingSection() {
                            className="w-full"
                            size="lg"
                         >
-                           <Link to="/signup">
+                           <Link href="/signup">
                               {plan.price === 'Custom'
                                  ? t(
                                       'pricing Section.contactSales',
@@ -251,7 +253,7 @@ export function PricingSection() {
                   )}
                </p>
                <Button size="lg" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                      {t(
                         'pricing Section.enterprise.cta.button',
                         'Schedule a Demo',

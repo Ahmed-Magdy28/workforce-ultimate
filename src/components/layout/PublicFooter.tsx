@@ -1,5 +1,7 @@
+'use client';
+
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import Link from 'next/link';
 import { Github, Twitter, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -120,7 +122,7 @@ export function PublicFooter() {
                   {/* Company Info & Newsletter */}
                   <div className="lg:col-span-4">
                      {/* Logo & Description */}
-                     <Link to="/" className="flex items-center gap-2 mb-6">
+                     <Link href="/" className="flex items-center gap-2 mb-6">
                         <img
                            src="/assets/icons/logo.png"
                            className="h-8 w-8 object-contain"
@@ -202,8 +204,9 @@ export function PublicFooter() {
                               href={myLocationMapLink}
                               rel="noopener"
                               className="hover:text-primary transition-colors"
+                              suppressHydrationWarning
                            >
-                              {t('public footer.address', { companyAddress })}
+                              {t('public footer.address', companyAddress)}
                            </a>
                         </div>
                      </div>
@@ -240,7 +243,7 @@ export function PublicFooter() {
                               {footerLinks.company.map((link, index) => (
                                  <li key={index}>
                                     <Link
-                                       to={link.href}
+                                       href={link.href}
                                        className="text-sm text-muted-foreground transition-colors hover:text-primary"
                                     >
                                        {link.label}
@@ -259,7 +262,7 @@ export function PublicFooter() {
                               {footerLinks.resources.map((link, index) => (
                                  <li key={index}>
                                     <Link
-                                       to={link.href}
+                                       href={link.href}
                                        className="text-sm text-muted-foreground transition-colors hover:text-primary"
                                     >
                                        {link.label}
@@ -278,7 +281,7 @@ export function PublicFooter() {
                               {footerLinks.legal.map((link, index) => (
                                  <li key={index}>
                                     <Link
-                                       to={link.href}
+                                       href={link.href}
                                        className="text-sm text-muted-foreground transition-colors hover:text-primary"
                                     >
                                        {link.label}

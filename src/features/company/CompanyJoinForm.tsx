@@ -1,4 +1,17 @@
-import { BadgeCheck, KeyRound, Users } from 'lucide-react';
+'use client';
+
+import { useState } from 'react';
+import {
+   AlertCircle,
+   BadgeCheck,
+   CheckCircle2,
+   ChevronDown,
+   ChevronUp,
+   KeyRound,
+   ShieldCheck,
+   UserCheck,
+   Users,
+} from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -14,6 +27,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import useUser from '@/features/auth/hooks/useUser';
 import {
    joinCompanyWithInvitationAPI,
    validateInvitationAPI,
@@ -22,35 +36,34 @@ import {
 
 type CompanyJoinFormValues = {
    inviteCode: string;
-   workEmail: string;
-   fullName: string;
+   workEmail?: string;
+   fullName?: string;
 };
 
 const joinBenefits = [
    {
       icon: KeyRound,
-      title: 'Use the invitation code',
+      title: 'Use your invitation code',
       description:
-         'A short code connects teammates to the right company and the intended role.',
+         'Your administrator or HR provides a unique code that links you directly to the workspace.',
    },
    {
       icon: BadgeCheck,
-      title: 'Validate before joining',
+      title: 'Pre-assigned role & team',
       description:
-         'Check that the code is active, not expired, and still has available uses before access is created.',
+         'Each code has an intended role (HR, Employee, Manager) already configured by your organization.',
    },
    {
       icon: Users,
-      title: 'Complete onboarding faster',
+      title: 'Instant workspace access',
       description:
-         'Once the code is valid, the join flow can create the employee record and attach the user to the company.',
+         'Join in one click using your active account without needing manual approval or re-entering details.',
    },
 ];
 
 function FieldError({ message }: { message?: string }) {
    if (!message) return null;
-
-   return <p className="text-sm text-destructive">{message}</p>;
+   return <p className="text-xs text-destructive mt-1 font-medium">{message}</p>;
 }
 
 function InvitationStatusCard({
@@ -60,30 +73,73 @@ function InvitationStatusCard({
 }) {
    if (!invitation) return null;
 
+   if (invitation.valid) {
+      return (
+         <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 transition-all">
+            <div className="flex items-start gap-3">
+               <div className="mt-0.5 rounded-xl bg-emerald-500/20 p-2 text-emerald-600">
+                  <CheckCircle2 className="size-4" />
+               </div>
+               <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                     <p className="text-sm font-semibold text-emerald-900 dark:text-emerald-200">
+                        Valid invitation code
+                     </p>
+                     <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+                        {invitation.role ?? 'Member'}
+                     </span>
+                  </div>
+                  <p className="text-sm text-emerald-800/90 dark:text-emerald-300/90">
+                     Company:{' '}
+                     <strong>
+                        {invitation.company_name || 'Verified Organization'}
+                     </strong>
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                     Click &quot;Join workspace&quot; below to finish onboarding immediately.
+                  </p>
+               </div>
+            </div>
+         </div>
+      );
+   }
+
    return (
-      <div
-         className={
-            invitation.valid
-               ? 'rounded-2xl border border-primary/20 bg-primary/5 p-4'
-               : 'rounded-2xl border border-destructive/20 bg-destructive/5 p-4'
-         }
-      >
-         <p className="text-sm font-semibold">
-            {invitation.valid
-               ? 'Invitation is valid'
-               : 'Invitation is not valid'}
-         </p>
-         <p className="mt-1 text-sm leading-6 text-muted-foreground">
-            {invitation.valid
-               ? `Company ID: ${invitation.company_id} • Role: ${invitation.role}`
-               : invitation.message}
-         </p>
+      <div className="rounded-2xl border border-destructive/30 bg-destructive/10 p-4 transition-all">
+         <div className="flex items-start gap-3">
+            <div className="mt-0.5 rounded-xl bg-destructive/20 p-2 text-destructive">
+               <AlertCircle className="size-4" />
+            </div>
+            <div className="space-y-1">
+               <p className="text-sm font-semibold text-destructive">
+                  Invalid invitation code
+               </p>
+               <p className="text-sm leading-relaxed text-destructive/90">
+                  {invitation.message}
+               </p>
+               {invitation.message.toLowerCase().includes('not found') && (
+                  <p className="text-xs text-muted-foreground pt-1">
+                     Make sure the code matches the workspace invitation exactly.
+                  </p>
+               )}
+            </div>
+         </div>
       </div>
    );
 }
 
 export default function CompanyJoinForm() {
    const queryClient = useQueryClient();
+   const { user, isLoading: isUserLoading } = useUser();
+   const [showCustomDetails, setShowCustomDetails] = useState(false);
+
+   const userMeta = user?.user_metadata;
+   const defaultName =
+      (userMeta?.fullName as string | undefined) ||
+      (userMeta?.full_name as string | undefined) ||
+      (user?.email ? user.email.split('@')[0] : 'Team Member');
+   const defaultEmail = user?.email || '';
+
    const {
       register,
       handleSubmit,
@@ -122,7 +178,7 @@ export default function CompanyJoinForm() {
             });
             await queryClient.invalidateQueries({ queryKey: ['company'] });
 
-            toast.success('You joined the company successfully.');
+            toast.success('Successfully joined the workspace!');
             reset();
          },
          onError: (error: Error) => {
@@ -133,53 +189,70 @@ export default function CompanyJoinForm() {
    async function handleValidateClick() {
       const inviteCode = getValues('inviteCode');
 
-      if (!inviteCode.trim()) {
-         setError('inviteCode', { message: 'Invitation code is required' });
+      if (!inviteCode?.trim()) {
+         setError('inviteCode', { message: 'Please enter an invitation code' });
          return;
       }
 
       clearErrors('inviteCode');
-      const result = await validateInvitation(inviteCode);
+      const result = await validateInvitation(inviteCode.trim());
 
       if (!result.valid) {
          setError('inviteCode', { message: result.message });
       } else {
          clearErrors('inviteCode');
+         toast.success(`Valid code for ${result.company_name || 'workspace'} (${result.role})`);
       }
    }
 
    async function onSubmit(data: CompanyJoinFormValues) {
-      const inviteCode = data.inviteCode.trim();
-      const latestValidation = await validateInvitation(inviteCode);
+      const cleanCode = data.inviteCode?.trim();
 
-      if (!latestValidation.valid) {
-         setError('inviteCode', {
-            message: latestValidation.message,
-         });
-         toast.error(latestValidation.message);
+      if (!cleanCode) {
+         setError('inviteCode', { message: 'Please enter an invitation code' });
          return;
       }
 
-      await joinCompany(data);
+      // 1. Validate if not already validated or if code differs
+      let validation = invitationStatus;
+      if (!validation || !validation.valid) {
+         validation = await validateInvitation(cleanCode);
+      }
+
+      if (!validation.valid) {
+         setError('inviteCode', {
+            message: validation.message,
+         });
+         toast.error(validation.message);
+         return;
+      }
+
+      // 2. Perform join with authenticated user fallback
+      await joinCompany({
+         inviteCode: cleanCode,
+         fullName: data.fullName?.trim() || defaultName,
+         workEmail: data.workEmail?.trim() || defaultEmail,
+      });
    }
 
-   const isBusy = isValidatingInvitation || isJoiningCompany;
+   const isBusy = isValidatingInvitation || isJoiningCompany || isUserLoading;
 
    return (
       <div className="grid gap-6 xl:grid-cols-[0.88fr_1.12fr]">
+         {/* Informational Card */}
          <Card className="border-primary/15 bg-linear-to-br from-primary/8 via-background to-background shadow-sm">
             <CardHeader className="space-y-4">
                <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-background/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-primary">
-                  Join by invitation
+                  <ShieldCheck className="size-3.5" />
+                  Invitation Access
                </div>
                <div className="space-y-2">
                   <CardTitle className="text-2xl leading-tight sm:text-3xl">
-                     Let teammates join with an invitation code.
+                     Connect directly to your team.
                   </CardTitle>
                   <CardDescription className="max-w-xl text-sm leading-6 sm:text-base">
-                     This flow validates the code first, then creates the
-                     employee membership for the logged-in user with the role
-                     attached to that invitation.
+                     Paste your workspace invitation code to join your company.
+                     Your account profile is automatically linked to your employee record.
                   </CardDescription>
                </div>
             </CardHeader>
@@ -204,40 +277,64 @@ export default function CompanyJoinForm() {
                   </div>
                ))}
 
-               <div className="rounded-2xl border border-dashed border-primary/30 bg-background/70 p-4 text-sm text-muted-foreground">
-                  Tip: the code here maps to your `invitations` table and is
-                  validated through the `validate_invitation` database function.
+               <div className="rounded-2xl border border-dashed border-primary/30 bg-background/70 p-4 text-xs leading-5 text-muted-foreground">
+                  Logged in with your work email? No extra verification steps required. Enter the code and click <strong>Join workspace</strong>.
                </div>
             </CardContent>
          </Card>
 
+         {/* Join Form Card */}
          <Card className="shadow-sm">
             <CardHeader className="space-y-2 border-b">
                <CardTitle className="text-xl sm:text-2xl">
                   Join workspace
                </CardTitle>
                <CardDescription className="text-sm sm:text-base">
-                  Enter the invitation code and your employee details.
+                  Enter the invitation code to connect to your organization.
                </CardDescription>
             </CardHeader>
 
             <form onSubmit={handleSubmit(onSubmit)}>
                <CardContent className="space-y-6 pt-6">
+                  {/* Current Authenticated User Identity */}
+                  <div className="flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/5 p-4">
+                     <div className="flex size-11 items-center justify-center rounded-xl bg-primary/10 font-bold text-sm text-primary">
+                        {defaultName.slice(0, 2).toUpperCase()}
+                     </div>
+                     <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                           <p className="text-sm font-semibold truncate text-foreground">
+                              {defaultName}
+                           </p>
+                           <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+                              <UserCheck className="size-3" />
+                              Signed In
+                           </span>
+                        </div>
+                        <p className="text-xs text-muted-foreground truncate">
+                           {defaultEmail || 'Authenticated User'}
+                        </p>
+                     </div>
+                  </div>
+
+                  {/* Invitation Code Input */}
                   <div className="space-y-2">
-                     <Label htmlFor="joinCode">Invitation code</Label>
+                     <Label htmlFor="joinCode" className="text-sm font-medium">
+                        Invitation code <span className="text-destructive">*</span>
+                     </Label>
                      <div className="flex flex-col gap-3 sm:flex-row">
                         <Input
                            id="joinCode"
-                           placeholder="a1b2c3d4e5f6"
+                           placeholder="e.g. 413623b1ea03"
                            disabled={isBusy}
+                           autoComplete="off"
                            aria-invalid={Boolean(errors.inviteCode)}
-                           className="sm:flex-1"
+                           className="font-mono tracking-wider sm:flex-1"
                            {...register('inviteCode', {
                               required: 'Invitation code is required',
                               minLength: {
-                                 value: 6,
-                                 message:
-                                    'Invitation code should be at least 6 characters',
+                                 value: 4,
+                                 message: 'Invitation code is too short',
                               },
                            })}
                         />
@@ -248,56 +345,64 @@ export default function CompanyJoinForm() {
                            onClick={handleValidateClick}
                            className="sm:w-auto"
                         >
-                           {isValidatingInvitation
-                              ? 'Checking...'
-                              : 'Validate code'}
+                           {isValidatingInvitation ? 'Checking...' : 'Validate code'}
                         </Button>
                      </div>
                      <FieldError message={errors.inviteCode?.message} />
                   </div>
 
+                  {/* Status Banner */}
                   <InvitationStatusCard invitation={invitationStatus ?? null} />
 
-                  <div className="grid gap-4 md:grid-cols-2">
-                     <div className="space-y-2">
-                        <Label htmlFor="joinFullName">Full name</Label>
-                        <Input
-                           id="joinFullName"
-                           placeholder="Mona Ahmed"
-                           disabled={isBusy}
-                           aria-invalid={Boolean(errors.fullName)}
-                           {...register('fullName', {
-                              required: 'Full name is required',
-                           })}
-                        />
-                        <FieldError message={errors.fullName?.message} />
-                     </div>
+                  {/* Optional Custom Profile Override */}
+                  <div className="rounded-xl border border-border/60 bg-muted/20 p-3">
+                     <button
+                        type="button"
+                        onClick={() => setShowCustomDetails((prev) => !prev)}
+                        className="flex w-full items-center justify-between text-left text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+                     >
+                        <span>Customize profile details for this workspace (optional)</span>
+                        {showCustomDetails ? (
+                           <ChevronUp className="size-3.5" />
+                        ) : (
+                           <ChevronDown className="size-3.5" />
+                        )}
+                     </button>
 
-                     <div className="space-y-2">
-                        <Label htmlFor="joinEmail">Work email</Label>
-                        <Input
-                           id="joinEmail"
-                           type="email"
-                           placeholder="mona@acme.com"
-                           disabled={isBusy}
-                           aria-invalid={Boolean(errors.workEmail)}
-                           {...register('workEmail', {
-                              required: 'Work email is required',
-                              pattern: {
-                                 value: /\S+@\S+\.\S+/,
-                                 message: 'Enter a valid email address',
-                              },
-                           })}
-                        />
-                        <FieldError message={errors.workEmail?.message} />
-                     </div>
+                     {showCustomDetails && (
+                        <div className="mt-4 grid gap-4 pt-2 border-t border-border/40 md:grid-cols-2">
+                           <div className="space-y-1.5">
+                              <Label htmlFor="joinFullName" className="text-xs">
+                                 Display name
+                              </Label>
+                              <Input
+                                 id="joinFullName"
+                                 placeholder={defaultName}
+                                 disabled={isBusy}
+                                 {...register('fullName')}
+                              />
+                           </div>
+
+                           <div className="space-y-1.5">
+                              <Label htmlFor="joinEmail" className="text-xs">
+                                 Work email
+                              </Label>
+                              <Input
+                                 id="joinEmail"
+                                 type="email"
+                                 placeholder={defaultEmail}
+                                 disabled={isBusy}
+                                 {...register('workEmail')}
+                              />
+                           </div>
+                        </div>
+                     )}
                   </div>
                </CardContent>
 
                <CardFooter className="flex flex-col gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
-                  <p className="text-sm leading-6 text-muted-foreground">
-                     This join flow validates the code, inserts the employee
-                     row, and links the current user to the company.
+                  <p className="text-xs leading-5 text-muted-foreground">
+                     Joining connects your account directly to the workspace with the pre-assigned role.
                   </p>
                   <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                      <Button
@@ -307,14 +412,14 @@ export default function CompanyJoinForm() {
                         onClick={() => reset()}
                         className="w-full sm:w-auto"
                      >
-                        Clear form
+                        Clear
                      </Button>
                      <Button
                         type="submit"
                         disabled={isBusy}
                         className="w-full sm:w-auto"
                      >
-                        {isJoiningCompany ? 'Joining...' : 'Join company'}
+                        {isJoiningCompany ? 'Joining workspace...' : 'Join workspace'}
                      </Button>
                   </div>
                </CardFooter>

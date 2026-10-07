@@ -5,6 +5,7 @@ import {
    Home,
    MoreHorizontal,
    Users,
+   MessageSquare,
 } from 'lucide-react';
 
 export type AppSidebarItem = {
@@ -32,6 +33,12 @@ export const SIDEBAR_ITEMS: AppSidebarItem[] = [
       label: 'Teams',
       path: '/teams',
       icon: Users,
+      section: 'primary',
+   },
+   {
+      label: 'Chat',
+      path: '/chat',
+      icon: MessageSquare,
       section: 'primary',
    },
    {

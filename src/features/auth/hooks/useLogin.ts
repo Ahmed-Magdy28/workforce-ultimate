@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { loginAPI } from '../api/apiAuth';
-import { setSession } from '../authSlice';
+import { setSession, setRole } from '../authSlice';
 import { useDispatch } from 'react-redux';
+import { mapMetadataToRole } from '@/utils/permissions';
+import { formatAuthError } from '@/lib/supabaseError';
 
 export default function useLogin() {
-   const navigate = useNavigate();
+   const router = useRouter();
    const queryClient = useQueryClient();
    const dispatch = useDispatch();
 
@@ -21,10 +23,14 @@ export default function useLogin() {
          toast.success('Signed in successfully');
          queryClient.setQueryData(['user'], user.user);
          dispatch(setSession(user.session));
-         navigate('/company', { replace: true });
+         const role = mapMetadataToRole(user.user?.user_metadata);
+         dispatch(setRole(role));
+         router.replace('/company');
       },
-      onError: () => {
-         toast.error('Provided email or password are incorrect');
+      onError: (error: Error) => {
+         toast.error(
+            formatAuthError(error, 'Provided email or password are incorrect'),
+         );
       },
    });
 

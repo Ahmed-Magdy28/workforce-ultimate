@@ -1,22 +1,17 @@
-import { NavLink } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { SIDEBAR_ITEMS } from './sidebar.config';
-import { getCurrentUserAPI } from '@/features/auth/api/apiAuth';
-
-function isInviteAllowed(teamRole?: string) {
-   return teamRole === 'owner' || teamRole === 'hr';
-}
+import { useRole } from '@/hooks/useRole';
 
 export default function Sidebar() {
-   const { data: user } = useQuery({
-      queryKey: ['user'],
-      queryFn: getCurrentUserAPI,
-   });
-   const teamRole = String(user?.user_metadata?.teamRole ?? '').toLowerCase();
+   const pathname = usePathname() ?? '';
+   const { canManageInvites } = useRole();
 
    const items = SIDEBAR_ITEMS.filter(
-      (item) => !item.adminOnly || isInviteAllowed(teamRole),
+      (item) => !item.adminOnly || canManageInvites,
    );
    const primaryItems = items.filter((item) => item.section === 'primary');
    const secondaryItems = items.filter((item) => item.section === 'secondary');
@@ -27,23 +22,24 @@ export default function Sidebar() {
             <div className="space-y-2">
                {primaryItems.map((item) => {
                   const Icon = item.icon;
+                  const isActive =
+                     pathname === item.path ||
+                     (item.path !== '/' && pathname.startsWith(item.path));
 
                   return (
-                     <NavLink
+                     <Link
                         key={item.path}
-                        to={item.path}
-                        className={({ isActive }) =>
-                           [
-                              'flex flex-col items-center gap-1.5 rounded-2xl px-1.5 py-3 text-center text-[11px] font-medium transition-colors',
-                              isActive
-                                 ? 'bg-primary text-primary-foreground'
-                                 : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                           ].join(' ')
-                        }
+                        href={item.path}
+                        className={[
+                           'flex flex-col items-center gap-1.5 rounded-2xl px-1.5 py-3 text-center text-[11px] font-medium transition-colors',
+                           isActive
+                              ? 'bg-primary text-primary-foreground'
+                              : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                        ].join(' ')}
                      >
                         <Icon className="size-4" />
                         {item.label}
-                     </NavLink>
+                     </Link>
                   );
                })}
             </div>
@@ -51,23 +47,24 @@ export default function Sidebar() {
             <div className="space-y-2 border-t pt-3">
                {secondaryItems.map((item) => {
                   const Icon = item.icon;
+                  const isActive =
+                     pathname === item.path ||
+                     (item.path !== '/' && pathname.startsWith(item.path));
 
                   return (
-                     <NavLink
+                     <Link
                         key={item.path}
-                        to={item.path}
-                        className={({ isActive }) =>
-                           [
-                              'flex flex-col items-center gap-1.5 rounded-2xl px-1.5 py-3 text-center text-[11px] font-medium transition-colors',
-                              isActive
-                                 ? 'bg-primary text-primary-foreground'
-                                 : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                           ].join(' ')
-                        }
+                        href={item.path}
+                        className={[
+                           'flex flex-col items-center gap-1.5 rounded-2xl px-1.5 py-3 text-center text-[11px] font-medium transition-colors',
+                           isActive
+                              ? 'bg-primary text-primary-foreground'
+                              : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                        ].join(' ')}
                      >
                         <Icon className="size-4" />
                         {item.label}
-                     </NavLink>
+                     </Link>
                   );
                })}
             </div>

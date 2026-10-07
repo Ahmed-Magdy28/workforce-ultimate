@@ -1,6 +1,8 @@
+'use client';
+
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '@/app/store';
+import type { RootState } from '@/store';
 import { useTranslation } from 'react-i18next';
 import { applyThemeToDOM } from '@/features/theme/themeSlice';
 

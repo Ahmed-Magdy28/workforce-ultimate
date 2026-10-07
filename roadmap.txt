@@ -5,6 +5,7 @@
 ✅ Protected routing
 ✅ Company creation (basic)
 ✅ RBAC setup
+✅ Backend error handling & resilience (Supabase down / offline)
 
 🔵 PHASE 2 — Core MVP (4-6 weeks)
 ✅ Company hierarchy (5 roles)

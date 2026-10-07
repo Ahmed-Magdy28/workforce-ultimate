@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, type JSX } from 'react';
 import { ArrowRight, Building2, Sparkles, UserPlus } from 'lucide-react';
 

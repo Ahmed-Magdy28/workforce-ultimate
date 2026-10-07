@@ -1,17 +1,34 @@
+'use client';
+
+import { useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Globe, Moon, Sun } from 'lucide-react';
-import { useAppDispatch, useAppSelector } from '@/app/store';
+import { useAppDispatch, useAppSelector } from '@/store';
 import { toggleTheme } from '@/features/theme/themeSlice';
+
+const emptySubscribe = () => () => {};
+
+function useIsClient() {
+   return useSyncExternalStore(
+      emptySubscribe,
+      () => true,
+      () => false,
+   );
+}
 
 export function PublicHeader() {
    const { i18n, t } = useTranslation();
-   const location = useLocation();
+   const pathname = usePathname();
    const theme = useAppSelector((state) => state.theme.theme);
    const dispatch = useAppDispatch();
-   const isAuthPage =
-      location.pathname === '/login' || location.pathname === '/signup';
+   const isClient = useIsClient();
+
+   const currentLang = isClient ? i18n.language : 'en';
+   const currentTheme = isClient ? theme : 'light';
+   const isAuthPage = pathname === '/login' || pathname === '/signup';
 
    const handleThemeToggle = () => {
       dispatch(toggleTheme());
@@ -21,7 +38,7 @@ export function PublicHeader() {
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
          <div className="mx-auto flex min-h-16 w-full max-w-screen-2xl items-center justify-between gap-3 px-4 py-2 sm:px-6 lg:px-8">
             <Link
-               to="/"
+               href="/"
                className="flex min-w-0 items-center gap-2 transition-opacity hover:opacity-80 sm:gap-3"
             >
                <img
@@ -38,10 +55,10 @@ export function PublicHeader() {
                {!isAuthPage && (
                   <div className="flex items-center gap-2">
                      <Button variant="ghost" size="sm" asChild>
-                        <Link to="/login">{t('login', 'Login')}</Link>
+                        <Link href="/login">{t('login', 'Login')}</Link>
                      </Button>
                      <Button size="sm" asChild>
-                        <Link to="/signup">{t('signup', 'Sign Up')}</Link>
+                        <Link href="/signup">{t('signup', 'Sign Up')}</Link>
                      </Button>
                   </div>
                )}
@@ -53,13 +70,13 @@ export function PublicHeader() {
                   className="h-9 w-9 shrink-0"
                   aria-label="Toggle theme"
                >
-                  {theme === 'light' ? (
+                  {currentTheme === 'light' ? (
                      <Moon className="h-4 w-4" />
                   ) : (
                      <Sun className="h-4 w-4" />
                   )}
-                  <span className="sr-only">
-                     {theme === 'light'
+                  <span className="sr-only" suppressHydrationWarning>
+                     {currentTheme === 'light'
                         ? t('theme.switchToDark', 'Switch to dark mode')
                         : t('theme.switchToLight', 'Switch to light mode')}
                   </span>
@@ -75,8 +92,8 @@ export function PublicHeader() {
                   aria-label="Switch language"
                >
                   <Globe className="h-4 w-4" />
-                  <span className="sr-only">
-                     {i18n.language === 'en' ? 'العربية' : 'English'}
+                  <span className="sr-only" suppressHydrationWarning>
+                     {currentLang === 'en' ? 'العربية' : 'English'}
                   </span>
                </Button>
             </div>

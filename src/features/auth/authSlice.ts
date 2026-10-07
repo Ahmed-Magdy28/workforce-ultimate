@@ -9,6 +9,7 @@ const authSlice = createSlice({
    reducers: {
       setSession(state, action: PayloadAction<Session | null>) {
          state.session = action.payload;
+         state.isInitialized = true;
 
          if (action.payload) {
             state.isAuthenticated = true;
@@ -20,8 +21,16 @@ const authSlice = createSlice({
          }
       },
 
-      setRole(state, action: PayloadAction<Role>) {
+      setRole(state, action: PayloadAction<Role | null>) {
          state.role = action.payload;
+      },
+
+      setInitialized(state, action: PayloadAction<boolean>) {
+         state.isInitialized = action.payload;
+      },
+
+      setBackendUnavailable(state, action: PayloadAction<boolean>) {
+         state.backendUnavailable = action.payload;
       },
 
       logout(state) {
@@ -29,9 +38,17 @@ const authSlice = createSlice({
          state.isAuthenticated = false;
          state.userId = null;
          state.role = null;
+         state.isInitialized = true;
       },
    },
 });
 
-export const { setSession, setRole, logout } = authSlice.actions;
+export const {
+   setSession,
+   setRole,
+   setInitialized,
+   setBackendUnavailable,
+   logout,
+} = authSlice.actions;
+
 export default authSlice.reducer;

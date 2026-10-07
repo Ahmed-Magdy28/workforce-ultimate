@@ -1,11 +1,12 @@
-import { Link } from 'react-router';
+'use client';
+
+import Link from 'next/link';
 import {
    ChevronDown,
    CircleHelp,
    ClipboardCheck,
    Clock3,
    Palette,
-   Search,
    Settings,
    Trash2,
    UserRoundPlus,
@@ -16,7 +17,8 @@ import { useState } from 'react';
 import useLogout from '@/features/auth/hooks/useLogout';
 import { getCurrentUserAPI } from '@/features/auth/api/apiAuth';
 import { getCurrentUserCompanyAPI } from '@/features/company/api/companyApis';
-import { Input } from '@/components/ui/input';
+import GlobalSearch from '@/components/common/GlobalSearch';
+import NotificationBell from '@/components/common/NotificationBell';
 
 function getWorkspaceTitle(fullName: string) {
    return `${fullName}'s Workspace`;
@@ -130,7 +132,7 @@ export default function Navbar() {
 
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
                      <Link
-                        to="/app/settings"
+                        href="/app/settings"
                         onClick={() => setIsWorkspaceMenuOpen(false)}
                         className="flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
                      >
@@ -139,7 +141,7 @@ export default function Navbar() {
                      </Link>
 
                      <Link
-                        to="/people"
+                        href="/people"
                         onClick={() => setIsWorkspaceMenuOpen(false)}
                         className="flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
                      >
@@ -151,26 +153,23 @@ export default function Navbar() {
             ) : null}
          </div>
 
-         <div className="mx-auto w-full max-w-xl">
-            <div className="relative">
-               <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-               <Input
-                  type="search"
-                  placeholder="Search tasks later..."
-                  className="h-8 rounded-full pl-9"
-               />
-            </div>
+         <div className="mx-auto flex w-full max-w-xl justify-center">
+            <GlobalSearch />
          </div>
 
-         <div className="relative group">
-            <button
-               type="button"
-               className="relative rounded-full p-0.5 transition-transform hover:scale-[1.02]"
-            >
-               {userAvatar ? (
-                  <img
-                     src={userAvatar}
-                     alt={fullName}
+         <div className="flex items-center gap-3">
+            <NotificationBell />
+
+            <div className="relative group">
+               <button
+                  type="button"
+                  className="relative rounded-full p-0.5 transition-transform hover:scale-[1.02]"
+               >
+                  {userAvatar ? (
+                     <img
+                        src={userAvatar}
+                        alt={fullName}
+
                      className="size-8 rounded-full object-cover"
                   />
                ) : (
@@ -273,7 +272,7 @@ export default function Navbar() {
                      </div>
                   </div>
 
-                  <Link to="/app/settings">
+                  <Link href="/app/settings">
                      <MenuRow>
                         <span className="flex items-center gap-2">
                            <Settings className="size-4" />
@@ -291,7 +290,7 @@ export default function Navbar() {
                      </MenuRow>
                   </button>
 
-                  <Link to="/app/help">
+                  <Link href="/app/help">
                      <MenuRow>
                         <span className="flex items-center gap-2">
                            <CircleHelp className="size-4" />
@@ -359,6 +358,8 @@ export default function Navbar() {
                </div>
             </div>
          </div>
+         </div>
       </header>
    );
 }
+

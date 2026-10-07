@@ -1,0 +1,187 @@
+{
+    "hero Section": {
+        "badge": "Enterprise-Grade Workforce Management",
+        "title1": "Transform Your",
+        "title2": "Team Productivity",
+        "description": "A comprehensive platform for managing employees, projects, and tasks. Boost productivity, streamline communication, and track performance—all in one place.",
+        "feature1": "Multi-level user hierarchy & permissions",
+        "feature2": "Advanced project & task management",
+        "feature3": "Real-time performance tracking & analytics",
+        "cta": "Get Started Free",
+        "learnMore": "Learn More",
+        "proof1": "No credit card required",
+        "proof2": "Free 14-day trial"
+    },
+    "features Section": {
+        "badge": "Features",
+        "heading": "Everything You Need to",
+        "headingHighlight": "Manage Your Workforce",
+        "subheading": "Comprehensive tools designed to streamline operations, boost productivity, and empower your team.",
+        "roles": {
+            "title": "User Roles & Hierarchy",
+            "description": "Multi-level permission system with Employee, Manager, Senior Manager, Regional Manager, and HR roles. Complete hierarchical structure for effective management."
+        },
+        "projects": {
+            "title": "Project Management",
+            "description": "Create projects, assign team members, and track progress through dedicated dashboards. Manage project states from Active to Completed with full visibility."
+        },
+        "tasks": {
+            "title": "Task Management System",
+            "description": "Create and assign tasks with priority levels (Normal, Important, Very Important, Critical). Employees can accept, suggest modifications, or report conflicts."
+        },
+        "scheduling": {
+            "title": "Smart Scheduling",
+            "description": "Employees set schedules and estimate task duration. Managers review, approve, or modify time allocations for optimal resource planning."
+        },
+        "notifications": {
+            "title": "Real-time Notifications",
+            "description": "Instant alerts for task assignments, time changes, approvals, priority updates, and delays. Stay informed on every update that matters."
+        },
+        "performance": {
+            "title": "Performance Evaluation",
+            "description": "Track performance with task-based scoring. View weekly, monthly, and annual evaluations. Identify top performers automatically."
+        },
+        "communication": {
+            "title": "Team Communication",
+            "description": "Built-in group chat for each team. Keep all work-related communication organized and accessible within the platform."
+        },
+        "logs": {
+            "title": "Daily Work Logs",
+            "description": "Document daily task updates and end-of-day notes. Improve tracking and maintain detailed work history for better accountability."
+        },
+        "files": {
+            "title": "File Management & Integrations",
+            "description": "Upload files within tasks with permission controls. Integrate seamlessly with GitHub and Gmail for enhanced workflow."
+        },
+        "hr": {
+            "title": "HR Management",
+            "description": "Managers can add bonuses and warnings. HR tracks all employee records, reviews bonuses, and manages disciplinary actions."
+        },
+        "profiles": {
+            "title": "Employee Profiles",
+            "description": "Employees update personal information. HR reviews, requests modifications, or directly updates employee data as needed."
+        },
+        "dashboards": {
+            "title": "Custom Dashboards",
+            "description": "Role-based dashboards for Employees and Managers. View daily tasks, change logs, satisfaction rates, and project progress at a glance."
+        },
+        "cta": {
+            "text": "Ready to transform your team management?",
+            "primary": "View Pricing",
+            "secondary": "Start Free Trial"
+        }
+    },
+    "pricing Section": {
+        "badge": "Pricing",
+        "heading": "Simple, Transparent",
+        "headingHighlight": "Pricing for Everyone",
+        "subheading": "Choose the perfect plan for your team. All plans include a 14-day free trial.",
+        "popular": "Most Popular",
+        "period": "/month",
+        "getStarted": "Get Started",
+        "contactSales": "Contact Sales",
+        "allPlans": "All plans include 14-day free trial. No credit card required.",
+        "benefit1": "Cancel anytime",
+        "benefit2": "Secure payments",
+        "benefit3": "Money-back guarantee",
+        "starter": {
+            "name": "Starter",
+            "description": "Perfect for small teams getting started",
+            "price": "$29",
+            "feature1": "Up to 10 team members",
+            "feature2": "5 active projects",
+            "feature3": "Basic task management",
+            "feature4": "Email notifications",
+            "feature5": "Daily work logs",
+            "feature6": "5GB file storage",
+            "feature7": "Email support"
+        },
+        "professional": {
+            "name": "Professional",
+            "description": "For growing teams with advanced needs",
+            "price": "$79",
+            "feature1": "Up to 50 team members",
+            "feature2": "Unlimited projects",
+            "feature3": "Advanced task management",
+            "feature4": "Real-time notifications",
+            "feature5": "Performance analytics",
+            "feature6": "Team communication",
+            "feature7": "50GB file storage",
+            "feature8": "GitHub & Gmail integration",
+            "feature9": "Priority support"
+        },
+        "enterprise": {
+            "name": "Enterprise",
+            "description": "For large organizations with custom requirements",
+            "price": "Custom",
+            "feature1": "Unlimited team members",
+            "feature2": "Unlimited projects",
+            "feature3": "All Professional features",
+            "feature4": "Custom integrations",
+            "feature5": "Advanced security & compliance",
+            "feature6": "Dedicated account manager",
+            "feature7": "Unlimited storage",
+            "feature8": "Custom training & onboarding",
+            "feature9": "24/7 phone support",
+            "feature10": "SLA guarantee",
+            "cta": {
+                "title": "Need a Custom Solution?",
+                "description": "Our Enterprise plan can be tailored to your specific needs. Contact our sales team for a personalized quote and demo.",
+                "button": "Schedule a Demo"
+            }
+        }
+    },
+    "techStack Section": {
+        "badge": "Technology Stack",
+        "heading": "Built with",
+        "headingHighlight": "Modern Technologies",
+        "subheading": "We use industry-leading tools and frameworks to deliver a fast, reliable, and scalable platform.",
+        "frontend": {
+            "category": "Frontend Framework",
+            "react": "A JavaScript library for building user interfaces",
+            "typescript": "Typed superset of JavaScript",
+            "vite": "Next generation frontend tooling"
+        },
+        "styling": {
+            "category": "Styling & UI",
+            "tailwind": "Utility-first CSS framework",
+            "shadcn": "Re-usable components built with Radix UI",
+            "lucide": "Beautiful & consistent icons"
+        },
+        "state": {
+            "category": "State Management",
+            "redux": "Official Redux toolset for efficient development",
+            "reactQuery": "Powerful data synchronization for React"
+        },
+        "backend": {
+            "category": "Backend & Database",
+            "supabase": "Open source Firebase alternative"
+        },
+        "routing": {
+            "category": "Routing & Forms",
+            "reactRouter": "Declarative routing for React",
+            "reactHookForm": "Performant form validation",
+            "zod": "TypeScript-first schema validation"
+        },
+        "utilities": {
+            "category": "Utilities",
+            "i18next": "Internationalization framework",
+            "toast": "Smoking hot notifications",
+            "helmet": "Manage document head for SEO"
+        },
+        "stats": {
+            "typescript": "TypeScript Coverage",
+            "openSource": "Open Source",
+            "openSourceDesc": "Built with open technologies",
+            "modern": "Modern",
+            "modernDesc": "Latest stable versions"
+        }
+    },
+    "landing page seo": {
+        "landing": {
+            "title": "Workforce Ultimate - Employee & Project Management Platform",
+            "description": "Transform your team productivity with Workforce Ultimate. Comprehensive platform for managing employees, projects, and tasks with real-time analytics, performance tracking, and seamless collaboration.",
+            "keywords": "workforce management, project management, employee management, task tracking, team collaboration, performance analytics, project tracking software, employee productivity, task management system"
+        }
+    }
+}

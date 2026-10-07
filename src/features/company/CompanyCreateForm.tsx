@@ -1,3 +1,5 @@
+'use client';
+
 import { Building2, Clock3, Globe, MapPinned, Users } from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm, useWatch } from 'react-hook-form';
@@ -13,11 +15,13 @@ import {
    CardTitle,
 } from '@/components/ui/card';
 import { IndustrySelect } from '@/components/ui/industry-select';
+import { CountrySelect } from '@/components/ui/country-select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { TimezoneSelect } from '@/components/ui/timezone-select';
+import { TimezoneSelect, detectBrowserTimezone } from '@/components/ui/timezone-select';
 import { createCompanyAPI } from '@/features/company/api/companyApis';
+import { useState } from 'react';
 
 type CompanyCreateFormValues = {
    name: string;
@@ -67,6 +71,7 @@ export default function CompanyCreateForm() {
       handleSubmit,
       reset,
       control,
+      setValue,
       formState: { errors },
    } = useForm<CompanyCreateFormValues>({
       defaultValues: {
@@ -77,16 +82,20 @@ export default function CompanyCreateForm() {
          website: '',
          workEmail: '',
          phone: '',
-         country: '',
-         timezone: 'UTC',
+         country: typeof window !== 'undefined' && detectBrowserTimezone() === 'Africa/Cairo' ? 'Egypt' : '',
+         timezone: typeof window !== 'undefined' ? detectBrowserTimezone() : 'Africa/Cairo',
          address: '',
          description: '',
       },
    });
+
+   const [browserTz] = useState<string>(() => (typeof window !== 'undefined' ? detectBrowserTimezone() : 'Africa/Cairo'));
+
    const selectedIndustry = useWatch({
       control,
       name: 'industry',
    });
+
 
    const { mutateAsync: createCompany, isPending: isCreatingCompany } =
       useMutation({
@@ -364,10 +373,9 @@ export default function CompanyCreateForm() {
 
                      <div className="grid gap-4 md:grid-cols-2">
                         <div className="space-y-2">
-                           <Label htmlFor="country">Country</Label>
-                           <Input
+                           <Label htmlFor="country">Country of origin</Label>
+                           <CountrySelect
                               id="country"
-                              placeholder="Egypt"
                               disabled={isCreatingCompany}
                               aria-invalid={Boolean(errors.country)}
                               {...register('country', {
@@ -394,13 +402,26 @@ export default function CompanyCreateForm() {
                   </section>
 
                   <section className="space-y-4">
-                     <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                        <Clock3 className="size-4 text-primary" />
-                        Operating defaults
+                     <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                           <Clock3 className="size-4 text-primary" />
+                           Operating defaults & Timezone
+                        </div>
+                        <button
+                           type="button"
+                           onClick={() => {
+                              const detected = detectBrowserTimezone();
+                              setValue('timezone', detected);
+                              toast.success(`Set to browser timezone: ${detected}`);
+                           }}
+                           className="text-xs text-primary hover:underline font-medium"
+                        >
+                           Auto-detect: {browserTz}
+                        </button>
                      </div>
 
                      <div className="space-y-2">
-                        <Label htmlFor="timezone">Timezone</Label>
+                        <Label htmlFor="timezone">Timezone (Egypt +2, Gulf, Global)</Label>
                         <TimezoneSelect
                            id="timezone"
                            disabled={isCreatingCompany}
@@ -409,9 +430,13 @@ export default function CompanyCreateForm() {
                               required: 'Timezone is required',
                            })}
                         />
+                        <p className="text-[11px] text-muted-foreground">
+                           Browser automatically detected: <span className="font-semibold text-foreground">{browserTz}</span>. You can change it to any timezone.
+                        </p>
                         <FieldError message={errors.timezone?.message} />
                      </div>
                   </section>
+
                </CardContent>
 
                <CardFooter className="flex flex-col gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">

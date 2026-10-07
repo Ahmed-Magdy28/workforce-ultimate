@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslation } from 'react-i18next';
 import {
    Card,
@@ -162,7 +164,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.auth.signinDesc',
                   'User registration and login with email/password',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.auth.forgot', 'Forgot Password'),
@@ -170,7 +172,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.auth.forgotDesc',
                   'Password reset flow with email verification',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.auth.verify', 'Email Verification'),
@@ -178,7 +180,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.auth.verifyDesc',
                   'Confirm email address before account activation',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.auth.password', 'Password Requirements'),
@@ -186,7 +188,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.auth.passwordDesc',
                   'Strong password validation and strength indicator',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
          ],
       },
@@ -222,7 +224,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.routing.redirectDesc',
                   'Redirect users based on auth state and role',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -233,7 +235,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.routing.persistenceDesc',
                   'Remember user session across page refreshes',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
          ],
       },
@@ -256,7 +258,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.company.creationDesc',
                   'Basic form to create a new company',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.company.profile', 'Company Profile'),
@@ -264,7 +266,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.company.profileDesc',
                   'Store company name, industry, and basic details',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.company.ownership', 'Owner Assignment'),
@@ -272,15 +274,15 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.company.ownershipDesc',
                   'Assign creator as company owner',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
          ],
       },
       {
-         title: t('roadmap.phase1.rbac.title', 'RBAC Setup'),
+         title: t('roadmap.phase1.rbac.title', 'RBAC Setup & Resilience'),
          description: t(
             'roadmap.phase1.rbac.description',
-            'Role-based access control foundation',
+            'Role-based access control and backend error resilience',
          ),
          icon: <Users className="h-5 w-5" />,
          color: 'text-pink-500',
@@ -290,9 +292,9 @@ export default function RoadMapPhase1() {
                name: t('roadmap.phase1.rbac.roles', 'Define Roles'),
                description: t(
                   'roadmap.phase1.rbac.rolesDesc',
-                  'Employee, Manager, Senior Manager, Regional Manager, HR',
+                  'Owner, Employee, Manager, Senior Manager, Regional Manager, HR',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.rbac.permissions', 'Permission System'),
@@ -300,7 +302,7 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.rbac.permissionsDesc',
                   'Define what each role can access and do',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase1.rbac.middleware', 'Auth Middleware'),
@@ -308,7 +310,15 @@ export default function RoadMapPhase1() {
                   'roadmap.phase1.rbac.middlewareDesc',
                   'Check permissions on route access',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
+            },
+            {
+               name: t('roadmap.phase1.rbac.resilience', 'Backend Error Resilience'),
+               description: t(
+                  'roadmap.phase1.rbac.resilienceDesc',
+                  'Graceful handling for Supabase offline, network down, and service issues',
+               ),
+               status: 'completed' as const,
             },
          ],
       },

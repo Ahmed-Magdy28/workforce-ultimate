@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslation } from 'react-i18next';
 import {
    Card,
@@ -65,7 +67,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.pwa.manifestDesc',
                   'manifest.json, 192×192 and 512×512 icons, theme color, display: standalone',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -76,7 +78,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.pwa.serviceworkerDesc',
                   'Vite PWA plugin or Workbox – caching static assets',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -87,7 +89,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.pwa.offlineDesc',
                   'Offline page / cached dashboard view + toast when offline',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -98,7 +100,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.pwa.pushDesc',
                   'Permission prompt, subscription to Supabase + VAPID keys, send from server',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
          ],
       },
@@ -124,7 +126,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.performance.lazyDesc',
                   'React.lazy + Suspense for routes, heavy components (charts, org chart)',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -135,7 +137,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.performance.imagesDesc',
                   'Next-gen formats (webp/avif), responsive sizes, lazy loading, blur placeholders',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -146,7 +148,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.performance.vitalsDesc',
                   'CLS, LCP, FID/INP tracking (Vercel Analytics / Sentry / LogRocket)',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -157,7 +159,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.performance.bundleDesc',
                   'Analyze with vite-bundle-visualizer, remove heavy deps, tree-shaking',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
          ],
       },
@@ -180,7 +182,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.caching.queryDesc',
                   'staleTime, cacheTime, refetchOnWindowFocus, background refetch',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -191,7 +193,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.caching.persistDesc',
                   'persistQueryClient + async storage for offline + faster reloads',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -202,7 +204,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.caching.supabaseDesc',
                   'Cache expensive reports / aggregates for 5–60 minutes',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
          ],
       },
@@ -225,7 +227,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.jobs.bulkDesc',
                   'Queue long-running imports / bulk notifications',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -236,7 +238,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.jobs.remindersDesc',
                   'Daily/weekly cron-like jobs (Supabase Edge / pg_cron / external scheduler)',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase4.jobs.audit', 'Async Audit Log Writes'),
@@ -244,7 +246,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.jobs.auditDesc',
                   'Fire-and-forget logging to prevent slowing down user actions',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
          ],
       },
@@ -270,7 +272,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.reporting.customDesc',
                   'Select metrics, filters, date range, group by → table/chart view',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t('roadmap.phase4.reporting.pdf', 'PDF Report Generation'),
@@ -278,7 +280,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.reporting.pdfDesc',
                   'jsPDF / pdfmake / puppeteer → styled PDF exports',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -289,7 +291,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.reporting.scheduledDesc',
                   'Email PDF/CSV reports weekly/monthly to managers/HR',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
             {
                name: t(
@@ -300,7 +302,7 @@ export default function RoadMapPhase4() {
                   'roadmap.phase4.reporting.dashboardDesc',
                   'Drill-down, time comparisons, export per widget',
                ),
-               status: 'pending' as const,
+               status: 'completed' as const,
             },
          ],
       },

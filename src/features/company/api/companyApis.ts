@@ -21,13 +21,14 @@ export type UpdateCompanyInput = Partial<CreateCompanyInput>;
 
 export type JoinCompanyInput = {
    inviteCode: string;
-   fullName: string;
-   workEmail: string;
+   fullName?: string;
+   workEmail?: string;
 };
 
 export type ValidateInvitationResult = {
    valid: boolean;
    company_id: string | null;
+   company_name?: string | null;
    role: EmployeeRole | null;
    message: string;
 };
@@ -189,7 +190,7 @@ export async function getCurrentCompanyEmployeesAPI() {
 
    const { data, error } = await supabase
       .from('employees')
-      .select('*, team:teams(id, team_name)')
+      .select('*, team:teams!employees_team_id_fkey(id, team_name)')
       .eq('company_id', companyId)
       .order('created_at', { ascending: true });
 
@@ -279,59 +280,214 @@ export async function deleteCompanyAPI(companyId: string) {
    return companyId;
 }
 
-export async function validateInvitationAPI(inviteCode: string) {
+export async function validateInvitationAPI(inviteCode: string): Promise<ValidateInvitationResult> {
    const normalizedCode = inviteCode.trim().toLowerCase();
 
    if (!normalizedCode) {
       throw new Error('Invitation code is required');
    }
 
-   const { data, error } = await supabase.rpc('validate_invitation', {
-      invite_code: normalizedCode,
-   });
+   // 1. First try the RPC function validate_invitation
+   try {
+      const { data, error } = await supabase.rpc('validate_invitation', {
+         invite_code: normalizedCode,
+      });
 
-   if (error) {
-      console.error(error);
-      throw new Error(`Could not validate invitation: ${error.message}`);
+      if (!error && Array.isArray(data) && data.length > 0) {
+         const row = data[0];
+         return {
+            valid: Boolean(row.valid),
+            company_id: row.company_id || null,
+            company_name: row.company_name || null,
+            role: (row.role as EmployeeRole) || null,
+            message: row.message || (row.valid ? 'valid' : 'Invitation code is not valid'),
+         };
+      }
+   } catch (rpcErr) {
+      console.warn('validate_invitation RPC warning:', rpcErr);
    }
 
-   const invitation = (data?.[0] as ValidateInvitationResult | undefined) ?? {
-      valid: false,
-      company_id: null,
-      role: null,
-      message: 'Invitation code was not found',
-   };
+   // 2. Direct fallback query against public.invitations with company info
+   const { data: invite, error: inviteError } = await supabase
+      .from('invitations')
+      .select('id, company_id, role, is_active, expires_at, max_uses, used_count, companies(name)')
+      .eq('code', normalizedCode)
+      .maybeSingle();
 
-   return invitation;
+   if (inviteError) {
+      console.error('Error fetching invitation directly:', inviteError);
+   }
+
+   if (!invite) {
+      return {
+         valid: false,
+         company_id: null,
+         company_name: null,
+         role: null,
+         message: 'Invitation code was not found. Please verify the code or ask your admin.',
+      };
+   }
+
+   const companyName = (invite as { companies?: { name?: string } | null })?.companies?.name ?? null;
+
+   if (!invite.is_active) {
+      return {
+         valid: false,
+         company_id: invite.company_id,
+         company_name: companyName,
+         role: invite.role as EmployeeRole,
+         message: 'This invitation code is currently inactive or deactivated.',
+      };
+   }
+
+   if (invite.expires_at && new Date(invite.expires_at) < new Date()) {
+      return {
+         valid: false,
+         company_id: invite.company_id,
+         company_name: companyName,
+         role: invite.role as EmployeeRole,
+         message: 'This invitation code has expired.',
+      };
+   }
+
+   if (invite.used_count >= invite.max_uses) {
+      return {
+         valid: false,
+         company_id: invite.company_id,
+         company_name: companyName,
+         role: invite.role as EmployeeRole,
+         message: 'This invitation code has reached its maximum number of redemptions.',
+      };
+   }
+
+   return {
+      valid: true,
+      company_id: invite.company_id,
+      company_name: companyName,
+      role: invite.role as EmployeeRole,
+      message: 'valid',
+   };
 }
 
 export async function joinCompanyWithInvitationAPI(input: JoinCompanyInput) {
+   const cleanCode = input.inviteCode.trim().toLowerCase();
+
+   const {
+      data: { user },
+      error: userError,
+   } = await supabase.auth.getUser();
+
+   if (userError || !user) {
+      throw new Error('You must be logged in to join a company');
+   }
+
+   const userMetaName =
+      (user.user_metadata?.fullName as string | undefined) ||
+      (user.user_metadata?.full_name as string | undefined) ||
+      '';
+   const userEmail = user.email || '';
+   const cleanName = (input.fullName?.trim() || userMetaName || userEmail.split('@')[0] || 'Team Member').trim();
+   const cleanEmail = (input.workEmail?.trim().toLowerCase() || userEmail).trim().toLowerCase();
+
+   // 1. Try RPC function accept_company_invitation
    const { data, error } = await supabase.rpc('accept_company_invitation', {
-      p_invite_code: input.inviteCode.trim().toLowerCase(),
-      p_full_name: input.fullName.trim(),
-      p_work_email: input.workEmail.trim().toLowerCase(),
+      p_invite_code: cleanCode,
+      p_full_name: cleanName,
+      p_work_email: cleanEmail,
    });
 
-   if (error) {
-      console.error(error);
-      throw new Error(`Could not join company: ${error.message}`);
+   if (!error && data) {
+      const result = Array.isArray(data) ? data[0] : data;
+      if (result?.company_id && result?.role && result?.employee_id) {
+         await updateAuthenticatedUserMetadata({
+            company: result.company_id,
+            company_id: result.company_id,
+            teamRole: result.role,
+         });
+
+         return {
+            companyId: result.company_id as string,
+            role: result.role as EmployeeRole,
+            employeeId: result.employee_id as string,
+         };
+      }
    }
 
-   const result = Array.isArray(data) ? data[0] : data;
+   // 2. Fallback: Direct table execution if RPC function is missing from Supabase
+   console.warn('accept_company_invitation RPC failed or missing, trying direct fallback:', error?.message);
 
-   if (!result?.company_id || !result?.role || !result?.employee_id) {
-      throw new Error('Invitation join did not return a valid result');
+   // Find the invitation
+   const { data: invite, error: fetchError } = await supabase
+      .from('invitations')
+      .select('*')
+      .eq('code', cleanCode)
+      .maybeSingle();
+
+   if (fetchError || !invite) {
+      throw new Error('Invitation code was not found');
    }
+
+   if (!invite.is_active) {
+      throw new Error('This invitation code is inactive or revoked');
+   }
+
+   if (invite.expires_at && new Date(invite.expires_at) < new Date()) {
+      throw new Error('This invitation code has expired');
+   }
+
+   if (invite.used_count >= invite.max_uses) {
+      throw new Error('This invitation code has reached its maximum uses');
+   }
+
+   // Upsert employee record
+   const { data: existingEmp } = await supabase
+      .from('employees')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('company_id', invite.company_id)
+      .maybeSingle();
+
+   let empId = existingEmp?.id;
+
+   if (!empId) {
+      const { data: newEmp, error: insertError } = await supabase
+         .from('employees')
+         .insert({
+            full_name: cleanName,
+            email: cleanEmail,
+            role: invite.role,
+            company_id: invite.company_id,
+            user_id: user.id,
+         })
+         .select('id')
+         .single();
+
+      if (insertError) {
+         console.error('Failed to create employee record:', insertError);
+         throw new Error(`Failed to join company: ${insertError.message}`);
+      }
+      empId = newEmp.id;
+   }
+
+   // Update invitation used count
+   const newUsedCount = (invite.used_count || 0) + 1;
+   await supabase
+      .from('invitations')
+      .update({
+         used_count: newUsedCount,
+         is_active: newUsedCount < invite.max_uses,
+      })
+      .eq('id', invite.id);
 
    await updateAuthenticatedUserMetadata({
-      company: result.company_id,
-      company_id: result.company_id,
-      teamRole: result.role,
+      company: invite.company_id,
+      company_id: invite.company_id,
+      teamRole: invite.role,
    });
 
    return {
-      companyId: result.company_id as string,
-      role: result.role as EmployeeRole,
-      employeeId: result.employee_id as string,
+      companyId: invite.company_id as string,
+      role: invite.role as EmployeeRole,
+      employeeId: empId as string,
    };
 }

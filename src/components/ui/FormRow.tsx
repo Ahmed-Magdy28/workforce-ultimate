@@ -1,3 +1,5 @@
+'use client';
+
 import styled from 'styled-components';
 import type { ReactElement, ReactNode } from 'react';
 import type { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';

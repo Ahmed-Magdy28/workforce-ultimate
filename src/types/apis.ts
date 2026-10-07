@@ -3,7 +3,14 @@
 // ============================================
 export type CompanyPlan = 'free' | 'pro' | 'enterprise';
 
-export type EmployeeRole = 'owner' | 'admin' | 'hr' | 'manager' | 'employee';
+export type EmployeeRole =
+   | 'owner'
+   | 'admin'
+   | 'hr'
+   | 'regional_manager'
+   | 'senior_manager'
+   | 'manager'
+   | 'employee';
 
 // ============================================
 // COMPANY
@@ -76,10 +83,30 @@ export type Invitation = {
 };
 
 // ============================================
+// JOIN REQUEST
+// ============================================
+export type CompanyJoinRequest = {
+   id: string;
+   company_id: string;
+   user_id: string;
+   full_name: string;
+   email: string;
+   status: 'pending' | 'approved' | 'rejected';
+   desired_role: string;
+   assigned_role: EmployeeRole;
+   assigned_team_id: string | null;
+   reviewed_by: string | null;
+   reviewed_at: string | null;
+   created_at: string;
+   updated_at: string;
+};
+
+// ============================================
 // JOINED TYPES (للاستخدام مع Supabase select)
 // ============================================
 export type TeamWithLead = Team & {
    lead: Pick<Employee, 'id' | 'full_name' | 'email'> | null;
+   members_count?: number;
 };
 
 export type EmployeeWithTeam = Employee & {
@@ -90,3 +117,4 @@ export type CompanyWithDetails = Company & {
    regional_manager: Pick<Employee, 'id' | 'full_name' | 'email'> | null;
    hr: Pick<Employee, 'id' | 'full_name' | 'email'> | null;
 };
+

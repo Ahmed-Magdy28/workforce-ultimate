@@ -1,3 +1,5 @@
+'use client';
+
 import {
    Building2,
    Globe,
@@ -17,6 +19,7 @@ import {
 } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import { getCurrentUserCompanyAPI } from '@/features/company/api/companyApis';
+import { getCountryFlag } from '@/components/ui/country-select';
 
 function InfoRow({
    label,
@@ -115,9 +118,17 @@ export default function CompanyData() {
                   </CardTitle>
                </CardHeader>
                <CardContent className="grid gap-4">
-                  <InfoRow label="Country" value={company.country} />
+                  <InfoRow
+                     label="Country"
+                     value={
+                        company.country
+                           ? `${getCountryFlag(company.country)} ${company.country}`
+                           : 'Not provided'
+                     }
+                  />
                   <InfoRow label="Address" value={company.headquarter} />
                </CardContent>
+
             </Card>
          </div>
 

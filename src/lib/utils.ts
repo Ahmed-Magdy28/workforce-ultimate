@@ -8,7 +8,9 @@ export function cn(...inputs: ClassValue[]) {
 
 export const AuthInitialState: AuthState = {
    isAuthenticated: false,
+   isInitialized: false,
    role: 'GUEST',
    userId: null,
    session: null,
+   backendUnavailable: false,
 };

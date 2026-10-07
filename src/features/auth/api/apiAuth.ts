@@ -53,6 +53,38 @@ export async function loginAPI({
    return data;
 }
 
+export async function requestPasswordResetAPI({
+   email,
+   redirectTo,
+}: {
+   email: string;
+   redirectTo: string;
+}) {
+   const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo,
+   });
+
+   if (error) {
+      console.error(error);
+      throw new Error(error.message || 'Password reset email could not be sent');
+   }
+}
+
+export async function updateRecoveredPasswordAPI({
+   password,
+}: {
+   password: string;
+}) {
+   const { data, error } = await supabase.auth.updateUser({ password });
+
+   if (error) {
+      console.error(error);
+      throw new Error(error.message || 'Password could not be updated');
+   }
+
+   return data;
+}
+
 export async function getCurrentUserAPI() {
    const { data: sessionData } = await supabase.auth.getSession();
 

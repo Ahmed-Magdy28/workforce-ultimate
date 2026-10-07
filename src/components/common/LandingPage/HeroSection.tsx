@@ -1,5 +1,7 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import {
    CheckCircle2,
@@ -93,7 +95,7 @@ export function HeroSection() {
                   {/* CTA Buttons */}
                   <div className="flex flex-col gap-4 sm:flex-row sm:gap-3">
                      <Button size="lg" asChild className="group">
-                        <Link to="/signup">
+                        <Link href="/signup">
                            {t('hero Section.cta', 'Get Started Free')}
                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Link>

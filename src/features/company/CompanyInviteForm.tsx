@@ -1,3 +1,5 @@
+'use client';
+
 import { MailPlus, ShieldCheck, UserRoundPlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -51,7 +53,51 @@ function FieldError({ message }: { message?: string }) {
    return <p className="text-sm text-destructive">{message}</p>;
 }
 
+import { useAuth } from '@/hooks/useAuth';
+import {
+   createCompanyInviteAPI,
+   getCompanyInvitationsAPI,
+   toggleInvitationActiveAPI,
+   deleteInvitationAPI,
+} from './api/teamHierarchyApis';
+import type { EmployeeRole } from '@/types/apis';
+import { useState } from 'react';
+import { Copy, Check, Trash2, Power } from 'lucide-react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
 export default function CompanyInviteForm() {
+   const { companyId } = useAuth();
+   const queryClient = useQueryClient();
+   const [generatedCode, setGeneratedCode] = useState<string | null>(null);
+   const [copied, setCopied] = useState(false);
+
+   const { data: invitations = [] } = useQuery({
+      queryKey: ['company-invitations', companyId],
+      queryFn: () => getCompanyInvitationsAPI(companyId || undefined),
+      enabled: Boolean(companyId),
+   });
+
+   const toggleInviteMutation = useMutation({
+      mutationFn: ({ id, isActive }: { id: string; isActive: boolean }) =>
+         toggleInvitationActiveAPI(id, isActive),
+      onSuccess: (_, vars) => {
+         toast.success(
+            vars.isActive ? 'Invitation code activated' : 'Invitation code stopped / revoked',
+         );
+         queryClient.invalidateQueries({ queryKey: ['company-invitations'] });
+      },
+      onError: (err: Error) => toast.error(err.message || 'Failed to update code status'),
+   });
+
+   const deleteInviteMutation = useMutation({
+      mutationFn: (id: string) => deleteInvitationAPI(id),
+      onSuccess: () => {
+         toast.success('Invitation code deleted');
+         queryClient.invalidateQueries({ queryKey: ['company-invitations'] });
+      },
+      onError: (err: Error) => toast.error(err.message || 'Failed to delete code'),
+   });
+
    const {
       register,
       handleSubmit,
@@ -69,10 +115,41 @@ export default function CompanyInviteForm() {
    });
 
    async function onSubmit(data: CompanyInviteFormValues) {
-      await Promise.resolve(data);
-      toast.success('Invitation prepared locally. API hookup can come next.');
-      reset();
+      if (!companyId) {
+         toast.error('You need an active company to generate invitations.');
+         return;
+      }
+
+      try {
+         const roleMapping: Record<string, EmployeeRole> = {
+            EMPLOYEE: 'employee',
+            MANAGER: 'manager',
+            SENIOR_MANAGER: 'senior_manager',
+            REGIONAL_MANAGER: 'regional_manager',
+            HR: 'hr',
+            ADMIN: 'admin',
+         };
+
+         const role = roleMapping[data.role] || 'employee';
+         const invite = await createCompanyInviteAPI(companyId, role, 5);
+         setGeneratedCode(invite.code);
+         toast.success(`Invite created successfully! Code: ${invite.code}`);
+         reset();
+      } catch (err: unknown) {
+         const msg = err instanceof Error ? err.message : 'Failed to generate invitation';
+         toast.error(msg);
+      }
    }
+
+   const handleCopyCode = () => {
+      if (generatedCode) {
+         navigator.clipboard.writeText(generatedCode);
+         setCopied(true);
+         toast.success('Invite code copied to clipboard!');
+         setTimeout(() => setCopied(false), 2000);
+      }
+   };
+
 
    return (
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
@@ -116,6 +193,103 @@ export default function CompanyInviteForm() {
                   Tip: keep invite roles conservative at first. You can always
                   promote access later.
                </div>
+
+               {/* Active Codes List in /invite */}
+               <div className="space-y-3 pt-2">
+                  <div className="flex items-center justify-between">
+                     <p className="text-sm font-bold">Existing Invitation Codes</p>
+                     <span className="text-xs text-muted-foreground">{invitations.length} total</span>
+                  </div>
+
+                  {invitations.length === 0 ? (
+                     <p className="text-xs text-muted-foreground">No codes generated yet.</p>
+                  ) : (
+                     <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                        {invitations.map((inv) => (
+                           <div
+                              key={inv.id}
+                              className={`flex items-center justify-between rounded-xl border p-2.5 text-xs transition-colors ${
+                                 inv.is_active
+                                    ? 'bg-card border-border/70'
+                                    : 'bg-destructive/5 border-destructive/20 opacity-75'
+                              }`}
+                           >
+                              <div className="space-y-0.5">
+                                 <div className="flex items-center gap-2">
+                                    <span className="font-mono font-bold text-primary text-xs">
+                                       {inv.code}
+                                    </span>
+                                    <span
+                                       className={`rounded px-1.5 py-0.2 text-[9px] font-semibold uppercase ${
+                                          inv.is_active
+                                             ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                                             : 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300'
+                                       }`}
+                                    >
+                                       {inv.is_active ? 'Active' : 'Stopped'}
+                                    </span>
+                                 </div>
+                                 <p className="text-[10px] text-muted-foreground">
+                                    Role: {inv.role} | Used: {inv.used_count}/{inv.max_uses}
+                                 </p>
+                              </div>
+
+                              <div className="flex items-center gap-1">
+                                 <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="ghost"
+                                    className="h-6 px-1.5 text-[10px]"
+                                    onClick={() => {
+                                       navigator.clipboard.writeText(inv.code);
+                                       toast.success(`Copied ${inv.code}`);
+                                    }}
+                                    title="Copy code"
+                                 >
+                                    <Copy className="size-3" />
+                                 </Button>
+                                 <Button
+                                    type="button"
+                                    size="sm"
+                                    variant={inv.is_active ? 'outline' : 'secondary'}
+                                    className={`h-6 px-2 text-[10px] ${
+                                       inv.is_active
+                                          ? 'text-rose-600 border-rose-200 hover:bg-rose-50 dark:hover:bg-rose-950/30'
+                                          : 'text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/30'
+                                    }`}
+                                    disabled={toggleInviteMutation.isPending}
+                                    onClick={() =>
+                                       toggleInviteMutation.mutate({
+                                          id: inv.id,
+                                          isActive: !inv.is_active,
+                                       })
+                                    }
+                                    title={inv.is_active ? 'Stop/Deactivate invitation code' : 'Reactivate code'}
+                                 >
+                                    <Power className="size-2.5 mr-1" />
+                                    {inv.is_active ? 'Stop' : 'Activate'}
+                                 </Button>
+                                 <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="ghost"
+                                    className="h-6 px-1.5 text-[10px] text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                                    disabled={deleteInviteMutation.isPending}
+                                    onClick={() => {
+                                       if (confirm(`Delete code ${inv.code} permanently?`)) {
+                                          deleteInviteMutation.mutate(inv.id);
+                                       }
+                                    }}
+                                    title="Delete code"
+                                 >
+                                    <Trash2 className="size-3" />
+                                 </Button>
+                              </div>
+                           </div>
+                        ))}
+                     </div>
+                  )}
+               </div>
             </CardContent>
          </Card>
 
@@ -131,6 +305,41 @@ export default function CompanyInviteForm() {
 
             <form onSubmit={handleSubmit(onSubmit)}>
                <CardContent className="space-y-8 pt-6">
+                  {generatedCode && (
+                     <div className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+                        <div className="space-y-1">
+                           <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                              Invitation Code Ready:
+                           </p>
+                           <p className="font-mono text-lg font-bold tracking-widest text-foreground">
+                              {generatedCode}
+                           </p>
+                           <p className="text-xs text-muted-foreground">
+                              Share this code with your teammate. They can use it to join from Company &gt; Join Company.
+                           </p>
+                        </div>
+                        <Button
+                           type="button"
+                           size="sm"
+                           variant="outline"
+                           className="gap-1.5"
+                           onClick={handleCopyCode}
+                        >
+                           {copied ? (
+                              <>
+                                 <Check className="h-4 w-4 text-emerald-500" />
+                                 Copied
+                              </>
+                           ) : (
+                              <>
+                                 <Copy className="h-4 w-4" />
+                                 Copy Code
+                              </>
+                           )}
+                        </Button>
+                     </div>
+                  )}
+
                   <section className="space-y-4">
                      <div className="grid gap-4 md:grid-cols-2">
                         <div className="space-y-2">
