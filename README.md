@@ -183,4 +183,4 @@ bun run start
 **Ahmed Magdy**  
 *Senior Frontend / Full-Stack Engineer*  
 - Live Application: [https://workforce-ultimate.vercel.app/](https://workforce-ultimate.vercel.app/)
-- Repository: [https://github.com/AhmedMagdy01/workforce-ultimate](https://github.com/AhmedMagdy01/workforce-ultimate)
+- Repository: [https://github.com/Ahmed-Magdy28/workforce-ultimate](https://github.com/Ahmed-Magdy28/workforce-ultimate)
